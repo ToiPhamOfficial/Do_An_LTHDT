@@ -4,12 +4,6 @@
 -- Số hàm: ...
 */
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <map>
-//using namespace std;
-
 void trim(string &s) {
     int i = 0, j = s.length() - 1;
     while(s[i] == ' ') {

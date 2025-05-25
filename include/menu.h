@@ -4,31 +4,31 @@
 -- Số hàm: ...
 */
 
-#include <iostream>
-#include <iomanip>
-//using namespace std;
-
 void mainMenu() {
-    cout << "==================== Menu ====================" << endl;
-    cout << "1. " << lang_data[1] << endl;
-    cout << "2. " << lang_data[2] << endl;
-    cout << "3. " << lang_data[3] << endl;
-    cout << "4. " << lang_data[4] << endl;
-    cout << "5. " << lang_data[5] << endl;
-    cout << "6. " << lang_data[6] << endl;
+    cout << endl;
+    cout << "+-------------------- Menu --------------------+" << endl;
+    cout << '|' << "1. " << lang_data[1] << endl;
+    cout << '|' << "2. " << lang_data[2] << endl;
+    cout << '|' << "3. " << lang_data[3] << endl;
+    cout << '|' << "4. " << lang_data[4] << endl;
+    cout << '|' << "5. " << lang_data[5] << endl;
+    cout << '|' << "6. " << lang_data[6] << endl;
+    cout << "+----------------------------------------------+" << endl;
 }
 
 void systemSettingsMenu() {
-    cout << "==================== Menu: " << lang_data[5] << " ====================" << endl;
-    cout << "1. " << lang_data[11] << endl;
+    cout << endl;
+    cout << "+-------------------- Menu: Cai dat he thong --------------------+" << endl;
+    cout << '|' << "1. Ngon ngu" << setw(54) << '|' << endl;
+    cout << "+----------------------------------------------------------------+" << endl;
 }
 
-int selectionInMenu(const int &max_sl) {
-    int sl;
+int chooseInMenu(const int &max_choice) {
+    int choice;
     while(true) {
-        cout << lang_data[8] << "> "; cin >> sl;
-        if(sl >= 1 && sl <= max_sl) {
-            return sl;
+        cout << "|\n+[" << lang_data[8] << "]-> "; cin >> choice;
+        if(choice >= 1 && choice <= max_choice) {
+            return choice;
         } else {
             cout << "!!!" << lang_data[9] << endl;
         }
@@ -36,25 +36,25 @@ int selectionInMenu(const int &max_sl) {
 }
 
 
-void handleMainMenu(const int &sl) {
-    switch(sl) {
+void handleMainMenu(const int &choice) {
+    switch(choice) {
         case 1:
-            cout << "Selection 1" << endl;
+            cout << "Choice 1" << endl;
             break;
         case 2:
-            cout << "Selection 2" << endl;
+            cout << "Choice 2" << endl;
             break;
         case 5: {
             systemSettingsMenu();
-            int sl = selectionInMenu(1);
+            int choice = chooseInMenu(1);
             cout << "1. Tiếng Việt" << endl;
             cout << "2. Tieng Viet khong dau" << endl;
             cout << "3. English" << endl;
 
-            sl = selectionInMenu(3);
-            if(sl == 1) {
+            choice = chooseInMenu(3);
+            if(choice == 1) {
                 settings[1] = "vi";
-            } else if(sl == 2) {
+            } else if(choice == 2) {
                 settings[1] = "vi2";
             } else {
                 settings[1] = "en";

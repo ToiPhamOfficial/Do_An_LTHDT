@@ -1,6 +1,10 @@
 // Include thư viện
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <iomanip>
+#include <fstream>
+#include <map>
 using namespace std;
 
 // Khai báo các biến toàn cục
@@ -9,16 +13,13 @@ string *lang_data = new string[15]; // Biến chứa ngôn ngữ hệ thống
 bool running = true; // Biến trạng thái chạy của hệ thống
 
 // Include các tệp header riêng
-#include "include.h"
+#include "declare.h"
 #include "include/class.h"
 #include "include/iofile.h"
 #include "include/menu.h"
 #include "include/functions.h"
 
 int main() {
-    // Dọn màn hình terminal
-    system("cls");
-
     // Tải cài đặt hệ thống
     readFile("settings.st", settings, 5);
 
@@ -26,12 +27,15 @@ int main() {
     loadLang(settings[1], lang_data, 15);
 
     // Hiển thị menu chính
-    while(running) {
+    while(!running) {
+        system("cls");
         mainMenu();
-        handleMainMenu(selectionInMenu(6));
+        handleMainMenu(chooseInMenu(6));
     }
 
-    //testOutput();
+    Bank b;
+    b.loadFromFile();
+    cout << b.accounts[0]->getDepositAmount() << endl;
 
     delete[] settings;
     delete[] lang_data;
