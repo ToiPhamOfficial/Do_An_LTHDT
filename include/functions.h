@@ -15,13 +15,13 @@ void trim(string &s) {
     s = s.substr(i, j - i + 1);
 }
 
-void splitData(const string &s, map<string, string> &m) {
+void splitData(const string &s, string *d_arr, const int &n) {
     stringstream ss(s);
-    string key, value;
-    getline(ss, key, '=');
-    getline(ss, value);
-    trim(key); trim(value);
-    m[key] = value;
+    string tmp;
+    for(int i = 0; i < n; i++) {
+        getline(ss, tmp, '|'); trim(tmp);
+        d_arr[i] = tmp;
+    }
 }
 
 void loadLang(string lang, string *ld, int n) {
@@ -36,4 +36,15 @@ void loadLang(string lang, string *ld, int n) {
 void reloadSystem() {
     system("cls");
     loadLang(settings[1], lang_data, 12);
+}
+
+string formatVND(const int &amount) {
+    string numStr = to_string(amount);
+    int n = numStr.length() - 3;
+    while(n > 0) {
+        numStr.insert(n, ",");
+        n -= 3;
+    }
+    
+    return numStr + " VND";
 }

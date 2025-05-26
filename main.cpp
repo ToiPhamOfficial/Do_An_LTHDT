@@ -4,7 +4,7 @@
 #include <sstream>
 #include <iomanip>
 #include <fstream>
-#include <map>
+#include <cmath>
 using namespace std;
 
 // Khai báo các biến toàn cục
@@ -35,7 +35,8 @@ int main() {
 
     Bank b;
     b.loadFromFile();
-    cout << b.accounts[0]->getDepositAmount() << endl;
+    //b.saveToFile();
+    b.search("Termf");
 
     delete[] settings;
     delete[] lang_data;
