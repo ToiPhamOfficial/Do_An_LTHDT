@@ -14,15 +14,26 @@ class Bank;
 
 // Khai báo các hàm
 int readFile(const string &file_name, string *d_arr, const int &n); // Hàm đọc dữ liệu từ tệp
-void writeFile(string file_name, string data_arr, const int &n); // Hàm ghi dữ liệu vào tệp
-void loadLang(string lang, string *lang_data); // Hàm tải ngôn ngữ vào chương trình
+void writeFile(string file_name, string data_arr, const int &n);        // Hàm ghi dữ liệu vào tệp
 void mainMenu(); // Hàm hiển thị menu
-void systemSettingsMenu(); // Hàm hiển thị menu cài đặt hệ thống
 int chooseInMenu(const int &max_sl); // Hàm trả về lựa chọn từ menu
-void handleMainMenu(const int &sl); // Hàm xử lí các lựa chọn trong menu chính
-void reloadSystem(); // Hàm tải lại hệ thống
+void handleMainMenu(Bank &B, const int &sl); // Hàm xử lí các lựa chọn trong menu chính
 
-void trim(string &s);  // Hàm xoá khoảng trắng 2 đầu của chuỗi
-void splitData(const string &s, string *d_arr, const int &n);
-string formatVND(const int &amount);
+string trim(const string &s);  // Hàm xoá khoảng trắng 2 đầu của chuỗi
+void splitData(const string &s, string *d_arr, const int &n, const char &delimiter); // Chia chuỗi bằng kí tự phân cách
+string formatVND(const double &amount);
 void outputData(SavingsAccount *accounts[], int n);
+
+bool compareByName(SavingsAccount *a, SavingsAccount *b);
+bool compareByBalance(SavingsAccount *a, SavingsAccount *b);
+template<class T>
+void customSort(T *arr[], const int &n, bool (*cmp)(T*, T*), bool ascending = true);
+string correctName(const string &str);
+
+// beta
+// Sử dụng trong hàm handleSearchResults để lấy con trỏ đến đối tượng Bank hiện tại
+Bank *bank = nullptr;
+
+// beta
+void exportToTextFile(SavingsAccount *accounts[], int n, const string &filename);
+void handleSearchResults(SavingsAccount *searchResults[], int &numResults);
