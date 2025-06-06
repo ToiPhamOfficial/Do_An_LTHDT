@@ -4,10 +4,6 @@
 -- Số hàm: ...
 */
 
-#include <chrono>
-#include <thread>
-using namespace std;
-
 string trim(const string &s) {
     int i = 0, j = s.length() - 1;
     while(s[i] == ' ') {
@@ -31,11 +27,9 @@ void splitData(const string &s, string *d_arr, const int &n, const char &delimit
 string formatVND(const double &amount) {
     // Làm tròn đến 2 chữ số thập phân
     double roundedAmount = round(amount * 100.0) / 100.0;
-
     // Tách phần nguyên và phần thập phân
     long long integerPart = static_cast<long long>(roundedAmount);
     int decimalPart = static_cast<int>(round((roundedAmount - integerPart) * 100));
-
     // Format phần nguyên với dấu phẩy
     string numStr = to_string(integerPart);
     int n = numStr.length() - 3;
@@ -43,11 +37,9 @@ string formatVND(const double &amount) {
         numStr.insert(n, ",");
         n -= 3;
     }
-
     // Gắn phần thập phân
     ostringstream oss;
     oss << numStr << "." << setfill('0') << setw(2) << decimalPart;
-
     return oss.str();
 }
 

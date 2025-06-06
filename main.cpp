@@ -28,9 +28,9 @@ bool running = true; // Biến trạng thái chạy của hệ thống
 // Include các tệp header riêng
 #include "declare.h"
 #include "include/class.h"
+#include "include/functions.h"
 #include "include/iofile.h"
 #include "include/menu.h"
-#include "include/functions.h"
 
 int main() {
     Bank B;
@@ -52,8 +52,9 @@ int main() {
         cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl
              << setw(75) << "\\-------------------------------------/" << endl;
         cout << RESET;
-        mainMenu();
-        handleMainMenu(B, chooseInMenu(6));
+        showMenu();
+        cout << GREEN << "+[Nhap lua chon]-> " << RESET;
+        handleMainMenu(B, getChoice(10));
     }
 
     system("pause");

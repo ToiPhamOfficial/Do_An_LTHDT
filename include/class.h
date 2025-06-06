@@ -4,6 +4,7 @@
 -- Số lớp: ...
 */
 
+//============================ Định nghĩa lớp Date ============================\\.
 class Date {
     private:
         int day = 7, month = 5, year = 2025;
@@ -13,19 +14,17 @@ class Date {
         int getMonth();
         int getYear();
         static Date getCurrentDate();
-        bool isValidDate(int d, int m, int y);
+        static bool isValidDate(int d, int m, int y);
         void input();
         string toString();
 };
 
-// Định nghĩa constructor
 Date::Date(int d, int m, int y) {
     day = d;
     month = m;
     year = y;
 }
 
-// Định nghĩa các hàm get
 int Date::getDay() {
     return day;
 }
@@ -105,7 +104,7 @@ string Date::toString() {
     return os.str();
 }
 
-// Lớp SavingsAccount
+//=============================== Định nghĩa lớp SavingsAccount (Lớp sổ tiết kiệm) ===============================\\.
 class SavingsAccount {
 	protected:
         string accountType;
@@ -133,7 +132,7 @@ class SavingsAccount {
 		void setOpenDate(Date date);
 		void setInterestRate(double rate);
         virtual void setTerm(int t);
-		void input();
+		virtual void input();
 		void display();
 		virtual string toString();
         virtual ~SavingsAccount();
@@ -207,22 +206,59 @@ void SavingsAccount::setInterestRate(double rate) {
 
 void SavingsAccount::setTerm(int t) {}
 
+void SavingsAccount::input() {
+  string inputName, inputId;
+  double inputAmount, inputRate;
+  
+  // Nhập tên khách hàng
+  cout << "\033[0;32m" << "+[Nhap ten khach hang]-> " << "\033[0m";
+  getline(cin, inputName); 
+  this->customerName = correctName(inputName);
+  
+  // Nhập số CCCD/CMT
+  cout << "\033[0;32m" << "+[Nhap so CCCD/CMT]-> " << "\033[0m";
+  getline(cin, inputId);
+  this->idNumber = inputId;
+  
+  // Nhập số tiền gửi
+  cout << "\033[0;32m" << "+[Nhap so tien gui]-> " << "\033[0m";
+  cin >> inputAmount;
+  this->depositAmount = inputAmount;
+  
+  // Nhập lãi suất
+  cout << "\033[0;32m" << "+[Nhap lai suat (%)]-> " << "\033[0m";
+  cin >> inputRate;
+  this->interestRate = inputRate;
+  
+  // Nhập ngày mở tài khoản
+  cout << "\033[0;32m" << "+[Nhap ngay mo tai khoan]-> " << "\033[0m" << endl;
+  openDate.input();
+  
+  // Mã khách hàng sẽ được nhập tùy theo loại tài khoản trong các lớp con
+}
+
 string SavingsAccount::toString() {
   stringstream ss;
-  ss << accountType << "|" << customerName << "|" << customerId << "|" 
-     << idNumber << "|" << openDate.getDay() << "/" << openDate.getMonth() << "/" 
-     << openDate.getYear() << "|" << depositAmount << "|" << interestRate;
+  ss << customerId << "|"
+     << customerName << "|"  
+     << idNumber << "|"
+     << openDate.getDay() << "/" << openDate.getMonth() << "/"  << openDate.getYear()
+     << "|" << depositAmount
+     << "|" << interestRate;
+
   return ss.str();
 }
 
 SavingsAccount::~SavingsAccount() {}
 
-// Lớp TermAccount (Có kỳ hạn)
+
+//================= Định nghĩa lớp TermAccount (Lớp sổ tiết kiệm có kỳ hạn) ================\\.
 class TermAccount : public SavingsAccount {
     private:
         int term;
     public:
         TermAccount();
+        void input();
         int getTerm();
         void setTerm(int t);
         double calculateInterest();
@@ -230,6 +266,45 @@ class TermAccount : public SavingsAccount {
 };
 
 TermAccount::TermAccount() : SavingsAccount() {}
+
+void TermAccount::input() {
+    SavingsAccount::input();
+    
+    // Nhập kỳ hạn
+    cout << "\033[0;32m" << "+[Nhap ky han (thang)]-> " << "\033[0m";
+    cin >> term;
+    cin.ignore();
+    
+    // Nhập mã khách hàng đúng định dạng: T + 5 số
+    string inputId;
+    bool validId = false;
+    
+    while (!validId) {
+        cout << "\033[0;32m" << "+[Nhap ma khach hang (T + 5 so)]-> " << "\033[0m";
+        getline(cin, inputId);
+        
+        // Kiểm tra định dạng: T + 5 số
+        if (inputId.length() == 6 && inputId[0] == 'T') {
+            bool allDigits = true;
+            for (int i = 1; i < 6; i++) {
+                if (!isdigit(inputId[i])) {
+                    allDigits = false;
+                    break;
+                }
+            }
+            
+            if (allDigits) {
+                validId = true;
+                customerId = inputId;
+                cout << "\033[0;34m" << "+[Thong bao]-> Ma khach hang hop le!" << "\033[0m" << endl;
+            } else {
+                cout << "\033[0;33m" << "+[Canh bao]-> Ma khach hang khong hop le! Can co dang T + 5 so" << "\033[0m" << endl;
+            }
+        } else {
+            cout << "\033[0;33m" << "+[Canh bao]-> Ma khach hang khong hop le! Can co dang T + 5 so" << "\033[0m" << endl;
+        }
+    }
+}
 
 int TermAccount::getTerm() {
     return term;
@@ -250,9 +325,8 @@ double TermAccount::calculateInterest() {
 
 string TermAccount::toString() {
     stringstream ss;
-    ss << "Term" << "|"
+    ss << getCustomerId() << "|"
        << getCustomerName() << "|"
-       << getCustomerId() << "|"
        << getIdNumber() << "|"
        << getOpenDate().getDay() << "/" << getOpenDate().getMonth() << "/" << getOpenDate().getYear() << "|"
        << getDepositAmount() << "|"
@@ -261,15 +335,51 @@ string TermAccount::toString() {
     return ss.str();
 }
 
-// Lớp NonTermAccount (Không kỳ hạn)
+
+//=============== Định nghĩa lớp TermAccount (Lớp sổ tiết kiệm không kỳ hạn) ================\\.
 class NonTermAccount : public SavingsAccount {
     public:
         NonTermAccount();
+        void input(); // Thêm phương thức input()
         double calculateInterest(int soThang);
         string toString();
 };
 
 NonTermAccount::NonTermAccount() : SavingsAccount() {}
+
+void NonTermAccount::input() {
+    SavingsAccount::input();
+    
+    // Nhập mã khách hàng đúng định dạng: NT + 5 số
+    string inputId;
+    bool validId = false;
+    
+    while (!validId) {
+        cout << "\033[0;32m" << "+[Nhap ma khach hang (NT + 5 so)]-> " << "\033[0m";
+        getline(cin, inputId);
+        
+        // Kiểm tra định dạng: NT + 5 số
+        if (inputId.length() == 6 && inputId[0] == 'N') {
+            bool allDigits = true;
+            for (int i = 2; i < 6; i++) {
+                if (!isdigit(inputId[i])) {
+                    allDigits = false;
+                    break;
+                }
+            }
+            
+            if (allDigits) {
+                validId = true;
+                customerId = inputId;
+                cout << "\033[0;34m" << "+[Thong bao]-> Ma khach hang hop le!" << "\033[0m" << endl;
+            } else {
+                cout << "\033[0;33m" << "+[Canh bao]-> Ma khach hang khong hop le! Can co dang NT + 5 so" << "\033[0m" << endl;
+            }
+        } else {
+            cout << "\033[0;33m" << "+[Canh bao]-> Ma khach hang khong hop le! Can co dang NT + 5 so" << "\033[0m" << endl;
+        }
+    }
+}
 
 double NonTermAccount::calculateInterest(int soThang) {
     return getDepositAmount() * getInterestRate() * soThang;
@@ -277,9 +387,8 @@ double NonTermAccount::calculateInterest(int soThang) {
 
 string NonTermAccount::toString() {
     stringstream ss;
-    ss << "NonTerm" << "|"
+    ss << getCustomerId() << "|"
        << getCustomerName() << "|"
-       << getCustomerId() << "|"
        << getIdNumber() << "|"
        << getOpenDate().getDay() << "/" << getOpenDate().getMonth() << "/" << getOpenDate().getYear() << "|"
        << getDepositAmount() << "|"
@@ -288,7 +397,8 @@ string NonTermAccount::toString() {
     return ss.str();
 }
 
-// Định nghĩa lớp Bank
+
+//============================= Định nghĩa lớp Bank =============================\\.
 class Bank{
 	private:
 		string name, address, taxCode, phone, email;
@@ -296,7 +406,7 @@ class Bank{
 		SavingsAccount *accounts[MAX_CUSTOMER];
 	public:
 		Bank(string name = "null", string address = "null", string taxCode = "null", string phone = "null", string email = "null");
-		void addAccount(); // Hàm thêm tài khoản vào ngân hàng
+		void addAccount(const int &accountType); // Hàm thêm tài khoản vào ngân hàng
 		string getName(); // Hàm trả về tên của ngân hàng
         string getAddress(); // Hàm trả về  địa chỉ của ngân hàng
         string getPhone(); // Hàm trả về số điện thoại chăm sóc khách hàng của ngân hàng
@@ -329,64 +439,16 @@ Bank::Bank(string name, string address, string taxCode, string phone, string ema
     this->email = email;
 }
 
-void Bank::addAccount() {
-    //
+void Bank::addAccount(const int &accountType) {
     if(numAccounts < MAX_CUSTOMER) {
-        int accountType;
-        cout << endl;
-        cout << "\033[0;36m";
-        cout << "+---------- Menu: Them tai khoan moi ----------+" << endl;
-        cout << "| 1. Tai khoan co ky han                       |" << endl;
-        cout << "| 2. Tai khoan khong ky han                    |" << endl;
-        cout << "+----------------------------------------------+" << endl;
-        cout << "\033[0m";
-        
-        do {
-            cout << "\033[0;32m" << "+[Nhap lua chon]-> " << "\033[0m"; 
-            cin >> accountType;
-            if(accountType != 1 && accountType != 2) {
-                cout << "\033[0;33m" << "+[Canh bao]-> Lua chon khong hop le, vui long chon lai" << endl;
-            }
-        } while(accountType != 1 && accountType != 2);
-        
-        cin.ignore();
-        string customerName, customerId, idNumber;
-        double depositAmount, interestRate;
-        cout << "\033[0;32m" << "+[Nhap ten khach hang]-> " << "\033[0m";
-        getline(cin, customerName); customerName = correctName(customerName);
-        cout << "\033[0;32m" << "+[Nhap ma khach hang]-> " << "\033[0m";
-        getline(cin, customerId);
-        cout << "\033[0;32m" << "+[Nhap so CCCD/CMT]-> " << "\033[0m";
-        getline(cin, idNumber);
-        cout << "\033[0;32m" << "+[Nhap so tien gui]-> " << "\033[0m";
-        cin >> depositAmount;
-        
-        cout << "\033[0;32m" << "+[Nhap lai suat (%)]-> " << "\033[0m";
-        cin >> interestRate;
-        
-        Date openDate;
-        cout << "\033[0;32m" << "+[Nhap ngay mo tai khoan]-> " << "\033[0m" << endl;
-        openDate.input();
-        
         if(accountType == 1) {
-            int term;
-            cout << "\033[0;32m" <<"+[Nhap ky han (thang)]-> " << "\033[0m";
-            cin >> term;
-            
             accounts[numAccounts] = new TermAccount();
             accounts[numAccounts]->setAccountType("Term");
-            accounts[numAccounts]->setTerm(term);
         } else {
             accounts[numAccounts] = new NonTermAccount();
             accounts[numAccounts]->setAccountType("NonTerm");
         }
-        accounts[numAccounts]->setCustomerName(customerName);
-        accounts[numAccounts]->setCustomerId(customerId);
-        accounts[numAccounts]->setIdNumber(idNumber);
-        accounts[numAccounts]->setDepositAmount(depositAmount);
-        accounts[numAccounts]->setInterestRate(interestRate);
-        accounts[numAccounts]->setOpenDate(openDate);
-        
+        accounts[numAccounts]->input();
         numAccounts++;
         cout << "\033[0;34m" << "+[Thong bao]-> Them tai khoan thanh cong!" << "\033[0m" << endl;
         saveToFile();
@@ -492,7 +554,7 @@ void Bank::loadFromFile() {
     }
     // Đọc thông tin ngân hàng
     string line;
-    string *dataArr = new string[8];
+    string dataArr[7];
     getline(rf, line);
     splitData(line, dataArr, 5, '|');
     name = dataArr[0]; address = dataArr[1]; taxCode = dataArr[2]; phone = dataArr[3]; email = dataArr[4];
@@ -506,37 +568,36 @@ void Bank::loadFromFile() {
             continue;
         }
         stringstream ss(line);
-        string accountType;
-        getline(ss, accountType, '|'); accountType = trim(accountType);
-        if(accountType == "Term") {
-            splitData(line, dataArr, 8, '|');
-            accounts[i] = new TermAccount;
-            accounts[i]->setTerm(stoi(dataArr[7]));
-        } else if(accountType == "NonTerm") {
+        string customerId;
+        getline(ss, customerId, '|');
+        customerId = trim(customerId);
+        if(customerId[0] == 'T') {
             splitData(line, dataArr, 7, '|');
+            accounts[i] = new TermAccount;
+            accounts[i]->setTerm(stoi(dataArr[6]));
+        } else if(customerId[0] == 'N') {
+            splitData(line, dataArr, 6, '|');
             accounts[i] = new NonTermAccount;
         } else {
             cout << "\033[0;33m" << "+[Canh bao]-> Tai du lieu khong thanh cong, vui long xem lai tep du lieu!" << "\033[0m" << endl;
             system("pause");
             return;
         }
-        accounts[i]->setAccountType(dataArr[0]);
+        accounts[i]->setCustomerId(dataArr[0]);
         accounts[i]->setCustomerName(dataArr[1]);
-        accounts[i]->setCustomerId(dataArr[2]);
-        accounts[i]->setIdNumber(dataArr[3]);
+        accounts[i]->setIdNumber(dataArr[2]);
         
         // Xử lý ngày tháng
-        string dateStr = dataArr[4];
-        string *dateArr = new string[3];
+        string dateStr = dataArr[3];
+        string dateArr[3];
         splitData(dateStr, dateArr, 3, '/');
         Date date(stoi(dateArr[0]), stoi(dateArr[1]), stoi(dateArr[2]));
         accounts[i]->setOpenDate(date);
-        accounts[i]->setDepositAmount(stod(dataArr[5]));
-        accounts[i]->setInterestRate(stod(dataArr[6]));
+        accounts[i]->setDepositAmount(stod(dataArr[4]));
+        accounts[i]->setInterestRate(stod(dataArr[5]));
         i++;
     }
     cout << "\033[0;34m" << "+[Thong bao]-> Tai du lieu tu tep thanh cong" << "\033[0m" << endl;
-    delete[] dataArr;
 }
 
 void Bank::saveToFile() {
@@ -562,12 +623,11 @@ void Bank::display() {
 void Bank::search(const string &keyWord, SavingsAccount *searchResults[], int &c) {
     c = 0;
     for(int i = 0; i < numAccounts; i++) {
-        bool flag1 = accounts[i]->getAccountType() == keyWord;
-        bool flag2 = accounts[i]->getCustomerName().find(keyWord) != string::npos;
-        bool flag3 = accounts[i]->getCustomerId() == keyWord;
-        bool flag4 = accounts[i]->getIdNumber() == keyWord;
+        bool flag1 = accounts[i]->getCustomerName().find(keyWord) != string::npos;
+        bool flag2 = accounts[i]->getCustomerId() == keyWord;
+        bool flag3 = accounts[i]->getIdNumber() == keyWord;
         
-        if(flag1 || flag2 || flag3 || flag4) {
+        if(flag1 || flag2 || flag3) {
             searchResults[c++] = accounts[i];
         }
     }
