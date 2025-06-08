@@ -1,5 +1,4 @@
 /* 
--- Thành viên code: Pham Van Toi
 -- Nội dung tệp: Chứa các hàm tiện tích
 -- Số hàm: ...
 */
@@ -15,7 +14,7 @@ string trim(const string &s) {
     return s.substr(i, j - i + 1);
 }
 
-void splitData(const string &s, string *d_arr, const int &n, const char &delimiter) {
+void splitData(const string &s, string d_arr[], const int &n, const char &delimiter) {
     stringstream ss(s);
     string tmp;
     for(int i = 0; i < n; i++) {

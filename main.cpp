@@ -52,9 +52,7 @@ int main() {
         cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl
              << setw(75) << "\\-------------------------------------/" << endl;
         cout << RESET;
-        showMenu();
-        cout << GREEN << "+[Nhap lua chon]-> " << RESET;
-        handleMainMenu(B, getChoice(10));
+        handleMainMenu(B);
     }
 
     system("pause");

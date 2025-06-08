@@ -1,30 +1,30 @@
-/* 
--- Thành viên code: Pham Van Toi
+/*
 -- Nội dung tệp: Chứa các hàm hiển thị và xử lí lựa chọn từ menu
 -- Số hàm: ...
 */
 
-void showMenu(){
+void showMenu() {
     cout << CYAN;
 	cout << "+---------------------------------------------+ \n";
 	cout << "|                    Menu                     | \n";
 	cout << "+---------------------------------------------+ \n";
 	cout << "|  1. Them so tiet kiem moi                   | \n";
-	cout << "|  2. Xoa so tiet kiem                        | \n";
-	cout << "|  3. Hien thi so tiet kiem                   | \n";
-	cout << "|  4. Sap xep so tiet kiem                    | \n";
-	cout << "|  5. Tim kiem so tiet kiem                   | \n";
-	cout << "|  6. Loc so tiet kiem                        | \n";
-	cout << "|  7. Tinh tien lai moi so tiet kiem          | \n";
-	cout << "|  8. Tinh tong tien lai phai tra             | \n";
-	cout << "|  9. Cap nhat thong tin ngan hang            | \n";
-	cout << "| 10. Hien thi thong tin ngan hang            | \n";
+	cout << "|  2. Cap nhat thong tin so tiet kiem         | \n";
+	cout << "|  3. Xoa so tiet kiem                        | \n";
+	cout << "|  4. Hien thi so tiet kiem                   | \n";
+	cout << "|  5. Sap xep so tiet kiem                    | \n";
+	cout << "|  6. Tim kiem so tiet kiem                   | \n";
+	cout << "|  7. Loc so tiet kiem                        | \n";
+	cout << "|  8. Tinh tien lai moi so tiet kiem          | \n";
+	cout << "|  9. Tinh tong tien lai phai tra             | \n";
+	cout << "| 10. Cap nhat thong tin ngan hang            | \n";
+	cout << "| 11. Hien thi thong tin ngan hang            | \n";
 	cout << "|  0. Thoat chuong trinh                      | \n";
 	cout << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
-void showMenu1(){
+void showMenu1() {
     cout << "\n";
     cout << CYAN;
 	cout << "+---------------------------------------------+ \n";
@@ -37,20 +37,21 @@ void showMenu1(){
 	cout << RESET;
 }
 
-void showMenu3(){
+void showMenu4() {
     cout << "\n";
     cout << CYAN;
 	cout << "+---------------------------------------------+ \n";
 	cout << "|         Menu: Hien thi so tiet kiem         | \n";
 	cout << "+---------------------------------------------+ \n";
-	cout << "| 1. Hien thi tat ca So tiet kiem             | \n";
-	cout << "| 2. Hien thi CO KY HAN                       | \n";
-	cout << "| 3. Hien thi KHONG KY HAN                    | \n";
+	cout << "| 1. Hien thi tat ca so tiet kiem             | \n";
+	cout << "| 2. Hien thi cac so co ky han                | \n";
+	cout << "| 3. Hien thi cac so khong ky han             | \n";
+	cout << "| 0. Thoat                                    | \n";
 	cout << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
-void showMenu4(){
+void showMenu5() {
     cout << "\n";
     cout << CYAN;
 	cout << "+---------------------------------------------+ \n";
@@ -61,12 +62,25 @@ void showMenu4(){
 	cout << "| 3. Sap xep CCCD                             | \n";
 	cout << "| 4. Sap xep Ngay Lap So                      | \n";
 	cout << "| 5. Sap xep Lai So                           | \n";
-	cout << "|  0. Thoat chuong trinh                      | \n";
+	cout << "| 0. Thoat                                    | \n";
 	cout << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
-void showMenu5(){
+void showMenu6_1() {
+    cout << "\n";
+    cout << CYAN;
+    cout << "+---------------------------------------------+ \n";
+    cout << "|         Menu: Tim kiem so tiet kiem         | \n";
+    cout << "+---------------------------------------------+ \n";
+    cout << "| 1. Cap nhat so tiet kiem                    | \n";
+    cout << "| 2. Xoa so tiet kiem                         | \n";
+    cout << "| 0. Thoat                                    | \n";
+    cout << "+---------------------------------------------+ \n";
+    cout << RESET;
+}
+
+void showMenu6_2() {
     cout << "\n";
     cout << CYAN;
     cout << "+---------------------------------------------+ \n";
@@ -74,32 +88,56 @@ void showMenu5(){
     cout << "+---------------------------------------------+ \n";
     cout << "| 1. Cap nhat so tiet kiem                    | \n";
     cout << "| 2. Xoa so tiet kiem                         | \n";
+    cout << "| 0. Thoat                                    | \n";
     cout << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
-int getChoice(const int &maxChoice) {
+// SỬA LẠI PHẦN NÀY CHO LỰA CHỌN 6 (tham khảo theo code của chatgpt bên dưới)
+void showMenu7() {
+    cout << "\n";
+    cout << CYAN;
+    cout << "+---------------------------------------------+ \n";
+    cout << "|            Menu: Loc so tiet kiem           | \n";
+    cout << "+---------------------------------------------+ \n";
+    cout << "| 1. Loc cac so co so du > X                  | \n";
+    cout << "| 2. Loc cac so co so du < X                  | \n";
+    cout << "| 0. Thoat                                    | \n";
+    cout << "+---------------------------------------------+ \n";
+    cout << RESET;
+}
+
+int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo) {
     int choice;
     while(true) {
+        cout << GREEN << "+[Nhap lua chon]";
+        if(!optionInfo.empty()) {
+            cout << " (" << optionInfo << ")";
+        }
+        cout << "-> " << RESET;
         cin >> choice;
-        if(choice >= 0 && choice <= maxChoice) {
+        if(cin.fail()) {
+            cin.clear();
+            cin.ignore(999, '\n');
+            cout << YELLOW << "+[Canh bao]-> Vui long nhap so nguyen hop le!" << RESET << endl;
+            continue;
+        }
+        if(choice >= minChoice && choice <= maxChoice) {
             return choice;
         } else {
-            cout << YELLOW << "+[Canh bao]-> Lua chon khong hop le, vui long chon lai" << RESET << endl;
+            cout << YELLOW << "+[Canh bao]-> Lua chon khong hop le, vui long chon lai!" << RESET << endl;
         }
     }
 }
 
-void handleMenu1(Bank &B) {
+void handleChoice1(Bank &B) {
     while(true) {
         showMenu1();
-        cout << GREEN << "+[Nhap lua chon]-> " << RESET;
-        int choice = getChoice(2);
+        int choice = getChoice(0, 2);
         switch(choice) {
             case 0:
                 system("pause");
                 return;
-                break;
             case 1: {
                 B.addAccount(choice);
                 break;
@@ -112,521 +150,106 @@ void handleMenu1(Bank &B) {
     }
 }
 
-// beta
-void handleSearch() {
-    cout << endl;
-    cout << CYAN;
-    cout << "+---- Menu: Tim kiem tai khoan -> Thao tac ----+" << endl;
-    cout << "| 1. Sap xep ket qua                           |" << endl;
-    cout << "| 2. Xuat ra file                              |" << endl;
-    cout << "| 3. Loc them                                  |" << endl;
-    cout << "| 4. Cap nhat thong tin tai khoan              |" << endl;
-    cout << "| 5. Xoa tai khoan                             |" << endl;
-    cout << "| 0. Quay lai                                  |" << endl;
-    cout << "+----------------------------------------------+" << endl;
-    cout << RESET;
+bool handleRemoveAccountChoice(Bank &B, const string &customerId) {
+    if (!B.accountExists(customerId)) {
+        cout << YELLOW << "+[Canh bao]-> Ma khach hang khong ton tai. Vui long thu lai!" << RESET << endl;
+        return false;
+    } else {
+        int ans;
+        cout << GREEN << "+[Xac nhan xoa (1: co | 0: khong)]-> " << RESET;
+        cin >> ans;
+        if(ans == 1) {
+            B.removeAccount(customerId);
+            cout << BLUE << "+[Thong bao]-> Xoa tai khoan thanh cong" << RESET << endl;
+        }
+    }
+    return true;
 }
 
-// beta
-void handleSortResultsMenu() {
-    cout << endl;
-    cout << CYAN;
-    cout << "+-------- Menu: Sap xep ket qua tim kiem -------+" << endl;
-    cout << "| 1. Sap xep theo ten khach hang                |" << endl;
-    cout << "| 2. Sap xep theo so du                         |" << endl;
-    cout << "| 3. Sap xep theo ngay mo tai khoan             |" << endl;
-    cout << "| 4. Sap xep theo loai tai khoan                |" << endl;
-    cout << "| 0. Quay lai                                   |" << endl;
-    cout << "+----------------------------------------------+" << endl;
-    cout << RESET;
+void handleChoice2(Bank &B) {
+    string customerId;
+    int ans;
+    while (true) {
+        cout << GREEN << "+[Nhap ma khach hang can xoa (0: thoat)]-> " << RESET;
+        cin >> customerId;
+        if(customerId == "0") {
+            break;
+        }
+        if(!handleRemoveAccountChoice(B, customerId)) {
+            continue;
+        }
+        cout << GREEN << "+[Ban muon xoa tai khoan nao nua khong? (1: co | 0: khong)]-> " << RESET;
+        cin >> ans;
+        if(!ans) {
+            break;
+        }
+    }
 }
 
-// beta
-bool compareByOpenDate(SavingsAccount *a, SavingsAccount *b) {
-    Date dateA = a->getOpenDate();
-    Date dateB = b->getOpenDate();
-    
-    if (dateA.getYear() != dateB.getYear())
-        return dateA.getYear() < dateB.getYear();
-    if (dateA.getMonth() != dateB.getMonth())
-        return dateA.getMonth() < dateB.getMonth();
-    return dateA.getDay() < dateB.getDay();
-}
+// Các hàm xử lí chức năng cho từng lựa chọn
+void handleChoice3(Bank &B) {}
 
-// beta
-bool compareByAccountType(SavingsAccount *a, SavingsAccount *b) {
-    return a->getAccountType() < b->getAccountType();
-}
+void handleChoice4(Bank &B) {}
 
-// beta
-void handleFilterMenu() {
-    cout << endl;
-    cout << CYAN;
-    cout << "+------------ Menu: Loc them ket qua ------------+" << endl;
-    cout << "| 1. Loc theo loai tai khoan                     |" << endl;
-    cout << "| 2. Loc theo so du > X                          |" << endl;
-    cout << "| 3. Loc theo so du < X                          |" << endl;
-    cout << "| 4. Loc theo ngay mo tai khoan                  |" << endl;
-    cout << "| 0. Quay lai                                    |" << endl;
-    cout << "+------------------------------------------------+" << endl;
-    cout << RESET;
-}
+void handleChoice5_2(Bank &B, SavingsAccount *searchResults[], int &numResults) {}
 
-void handleMainMenu(Bank &B, const int &choice) {
+void handleChoice5_1(Bank &B) {}
+
+void handleChoice6(Bank &B) {}
+
+void handleChoice7(Bank &B) {}
+
+void handleChoice8(Bank &B) {}
+
+void handleChoice9(Bank &B) {}
+
+void handleChoice10(Bank &B) {}
+
+void handleChoice11(Bank &B) {}
+
+void handleMainMenu(Bank &B) {
+    showMenu();
+    int choice = getChoice(0, 11);
     switch(choice) {
         case 0:
             running = false;
             break;
         case 1: {
-            handleMenu1(B);
+            handleChoice1(B);
             break;
         }
         case 2: {
-            ouputBankInfo(B);
-            system("pause");
-            break;}
-        case 3: {
-            int accountType;
-            cout << endl;
-            cout << "\033[0;36m";
-            cout << "+---------- Menu: Them tai khoan moi ----------+" << endl;
-            cout << "| 1. Tai khoan co ky han                       |" << endl;
-            cout << "| 2. Tai khoan khong ky han                    |" << endl;
-            cout << "+----------------------------------------------+" << endl;
-            cout << "\033[0m";
-            cout << GREEN << "+[Nhap lua chon]-> " << RESET;
-            getChoice(2);
-            B.addAccount(accountType);
-            system("pause");
-            break;}
-        case 4: {
-            cout << GREEN << "+[Nhap loai tai khoan can loc (Term/NonTerm)]-> " << RESET;
-            string accountType;
-            cin >> accountType;
-            
-            SavingsAccount *filteredAccounts[MAX_CUSTOMER];
-            int numFiltered = 0;
-            B.search(accountType, filteredAccounts, numFiltered);
-            
-            if(numFiltered > 0) {
-                cout << BLUE << "+[Thong bao]-> Co " << numFiltered << " tai khoan loai " << accountType << ":" << RESET << endl;
-                outputData(filteredAccounts, numFiltered);
-            } else {
-                cout << BLUE << "+[Thong bao]-> Khong co tai khoan loai " << accountType << RESET << endl;
-            }
-            system("pause");
-            break;}        case 5: {
-            while(true) {
-                string kw;
-                int numResults = 0;
-                SavingsAccount *searchResults[MAX_CUSTOMER];
-                cin.ignore();
-                cout << GREEN << "+[Nhap tu khoa tim kiem]-> " << RESET; getline(cin, kw);
-                if(kw.empty()) {
-                    cout << YELLOW << "+[Canh bao]-> Tu khoa khong duoc de trong" << RESET << endl;
-                    break;
-                }
-                B.search(kw, searchResults, numResults);
-                if(numResults) {
-                    cout << BLUE << "+[Thong bao]-> Co " << numResults << " ket qua da duoc tim thay:" << RESET << endl;
-                    outputData(searchResults, numResults);
-                    
-                    // beta - Thêm xử lý kết quả tìm kiếm
-                    handleSearchResults(searchResults, numResults);
-                } else {
-                    cout << BLUE << "+[Thong bao]-> Khong co ket qua nao duoc tim thay" << RESET << endl;
-                }                
-                int ans;
-                cout << GREEN << "+[Ban muon tim tiep khong? (1: co | 0: khong)]-> " << RESET; cin >> ans;
-                if(!ans) {
-                    break;
-                }
-            }
-            system("pause");
+            handleChoice2(B);
             break;
+        }
+        case 3: {
+            // Chưa làm
+        }
+        case 4: {
+            // Chưa làm
+        }   
+        case 5: {
+            // Chưa làm
         }
         case 6: {
-            int choice;
-            cout << endl;
-            cout << CYAN;
-            cout << "+----------------------------------------------+" << endl;
-            cout << "| 1. Sap xep theo ten                          |" << endl;
-            cout << "| 2. Sap xep theo so du                        |" << endl;
-            cout << "+----------------------------------------------+" << endl;
-            cout << RESET;
-            cout << GREEN <<"+[Nhap lua chon]-> " << RESET;
-            cin >> choice;
-            cin.ignore();
-
-            switch (choice) {
-                case 1:
-                    cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo ten: " << RESET << endl;
-                    B.sortByName();
-                    break;
-                case 2:
-                    cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo so du: " << RESET << endl;
-                    B.sortByBalance();
-                    break;
-                default:
-                    cout << YELLOW << "+[Canh bao]-> Lua chon khong hop le" << RESET << endl;
-                    break;
-            }
-            B.saveToFile();
-            system("pause");
-            break;
+            // Chưa làm
         }
-
+        case 7: {
+            // Chưa làm
+        }
+        case 8: {
+            // Chưa làm
+        }
+        case 9: {
+            // Chưa làm
+        }
+        case 10: {
+            // Chưa làm
+        }
+        case 11: {
+            // Chưa làm
+        }
         default:
             cout << "\033[0;31m" << "+[Loi]-> Da co loi xay ra!" << RESET << endl;
-    }
-}
-
-// beta
-void handleSearchResults(SavingsAccount *searchResults[], int &numResults) {
-    if (numResults <= 0) {
-        cout << BLUE << "+[Thong bao]-> Khong co ket qua de xu ly" << RESET << endl;
-        system("pause");
-        return;
-    }
-    
-    while (true) {
-        handleSearch();
-        int choice = getChoice(5);
-        
-        if (choice == 0) break;
-        
-        switch (choice) {
-            case 1: { // Sắp xếp kết quả
-                handleSortResultsMenu();
-                int sortChoice = getChoice(4);
-                
-                if (sortChoice == 0) break;
-                
-                bool ascending = true;
-                cout << GREEN << "+[Sap xep tang dan? (1: Tang, 0: Giam)]-> " << RESET;
-                int sortOrder;
-                cin >> sortOrder;
-                ascending = (sortOrder == 1);
-                
-                switch (sortChoice) {
-                    case 1: // Theo tên
-                        customSort(searchResults, numResults, Bank::compareByName, ascending);
-                        cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo ten khach hang" << RESET << endl;
-                        break;
-                    case 2: // Theo số dư
-                        customSort(searchResults, numResults, Bank::compareByBalance, ascending);
-                        cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo so du" << RESET << endl;
-                        break;
-                    case 3: // Theo ngày mở
-                        customSort(searchResults, numResults, compareByOpenDate, ascending);
-                        cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo ngay mo tai khoan" << RESET << endl;
-                        break;
-                    case 4: // Theo loại tài khoản
-                        customSort(searchResults, numResults, compareByAccountType, ascending);
-                        cout << BLUE << "+[Thong bao]-> Danh sach da duoc sap xep theo loai tai khoan" << RESET << endl;
-                        break;
-                }
-                outputData(searchResults, numResults);
-                system("pause");
-                break;
-            }            case 2: { // Xuất ra file
-                string filename;
-                cout << GREEN << "+[Nhap ten file xuat (khong can duoi)]-> " << RESET;
-                cin.ignore();
-                getline(cin, filename);
-                
-                if (filename.empty()) {
-                    filename = "search_results";
-                }
-                
-                cout << CYAN;
-                cout << "+----------- Menu: Dinh dang xuat file -----------+" << endl;
-                cout << "| 1. Xuat file CSV                                |" << endl;
-                cout << "| 2. Xuat file TXT                                |" << endl;
-                cout << "+-------------------------------------------------+" << endl;
-                cout << RESET;
-                
-                int formatChoice = getChoice(2);
-                
-                if (formatChoice == 1) {
-                    // Xuất file CSV
-                    string filepath = "data/" + filename + ".csv";
-                    ofstream file(filepath);
-                    
-                    if (file.is_open()) {
-                        // Ghi tiêu đề
-                        file << "STT,Loai,Khach hang,MKH,CMT/CCCD,Ngay mo,So du,Lai suat,Ky han\n";
-                        
-                        // Ghi dữ liệu
-                        for (int i = 0; i < numResults; i++) {
-                            file << i+1 << ","
-                                 << searchResults[i]->getAccountType() << ","
-                                 << searchResults[i]->getCustomerName() << ","
-                                 << searchResults[i]->getCustomerId() << ","
-                                 << searchResults[i]->getIdNumber() << ","
-                                 << searchResults[i]->getOpenDate().toString() << ","
-                                 << searchResults[i]->getDepositAmount() << ","
-                                 << searchResults[i]->getInterestRate() << ","
-                                 << ((searchResults[i]->getTerm() == 0) ? "N/A" : to_string(searchResults[i]->getTerm())) << "\n";
-                        }
-                        
-                        file.close();
-                        cout << BLUE << "+[Thong bao]-> Da xuat ket qua ra file: " << filepath << RESET << endl;
-                    } else {
-                        cout << RED << "+[Loi]-> Khong the mo file de ghi!" << RESET << endl;
-                    }
-                } else if (formatChoice == 2) {
-                    // Xuất file TXT
-                    exportToTextFile(searchResults, numResults, filename);
-                }
-                
-                system("pause");
-                break;
-            }
-            case 3: { // Lọc thêm                handleFilterMenu();
-                int filterChoice = getChoice(4);
-                
-                if (filterChoice == 0) break;
-                
-                SavingsAccount *filteredResults[MAX_CUSTOMER];
-                int numFiltered = 0;
-                
-                switch (filterChoice) {
-                    case 1: { // Lọc theo loại tài khoản
-                        string accountType;
-                        cout << GREEN << "+[Nhap loai tai khoan can loc (Term/NonTerm)]-> " << RESET;
-                        cin >> accountType;
-                        
-                        for (int i = 0; i < numResults; i++) {
-                            if (searchResults[i]->getAccountType() == accountType) {
-                                filteredResults[numFiltered++] = searchResults[i];
-                            }
-                        }
-                        break;
-                    }
-                    case 2: { // Lọc theo số dư > X
-                        double minBalance;
-                        cout << GREEN << "+[Nhap so du toi thieu]-> " << RESET;
-                        cin >> minBalance;
-                        
-                        for (int i = 0; i < numResults; i++) {
-                            if (searchResults[i]->getDepositAmount() > minBalance) {
-                                filteredResults[numFiltered++] = searchResults[i];
-                            }
-                        }
-                        break;
-                    }
-                    case 3: { // Lọc theo số dư < X
-                        double maxBalance;
-                        cout << GREEN << "+[Nhap so du toi da]-> " << RESET;
-                        cin >> maxBalance;
-                        
-                        for (int i = 0; i < numResults; i++) {
-                            if (searchResults[i]->getDepositAmount() < maxBalance) {
-                                filteredResults[numFiltered++] = searchResults[i];
-                            }
-                        }
-                        break;
-                    }
-                    case 4: { // Lọc theo ngày mở tài khoản
-                        cout << CYAN << "Chon kieu loc theo ngay:" << RESET << endl;
-                        cout << "1. Sau ngay" << endl;
-                        cout << "2. Truoc ngay" << endl;
-                        int dateFilterType = getChoice(2);
-                        
-                        cout << GREEN << "+[Nhap ngay mo tai khoan can so sanh]-> " << RESET << endl;
-                        Date compareDate;
-                        compareDate.input();
-                        
-                        for (int i = 0; i < numResults; i++) {
-                            Date accountDate = searchResults[i]->getOpenDate();
-                            bool shouldInclude = false;
-                            
-                            if (dateFilterType == 1) { // Sau ngày
-                                // Tài khoản mở sau ngày so sánh
-                                if (accountDate.getYear() > compareDate.getYear() ||
-                                   (accountDate.getYear() == compareDate.getYear() && 
-                                    accountDate.getMonth() > compareDate.getMonth()) ||
-                                   (accountDate.getYear() == compareDate.getYear() && 
-                                    accountDate.getMonth() == compareDate.getMonth() && 
-                                    accountDate.getDay() > compareDate.getDay())) {
-                                    shouldInclude = true;
-                                }
-                            } else { // Trước ngày
-                                // Tài khoản mở trước ngày so sánh
-                                if (accountDate.getYear() < compareDate.getYear() ||
-                                   (accountDate.getYear() == compareDate.getYear() && 
-                                    accountDate.getMonth() < compareDate.getMonth()) ||
-                                   (accountDate.getYear() == compareDate.getYear() && 
-                                    accountDate.getMonth() == compareDate.getMonth() && 
-                                    accountDate.getDay() < compareDate.getDay())) {
-                                    shouldInclude = true;
-                                }
-                            }
-                            
-                            if (shouldInclude) {
-                                filteredResults[numFiltered++] = searchResults[i];
-                            }
-                        }
-                        break;
-                    }
-                }
-                
-                if (numFiltered > 0) {
-                    cout << BLUE << "+[Thong bao]-> Co " << numFiltered << " ket qua sau khi loc:" << RESET << endl;
-                    outputData(filteredResults, numFiltered);
-                    
-                    // Cập nhật kết quả tìm kiếm
-                    cout << GREEN << "+[Ban co muon cap nhat ket qua tim kiem? (1: Co, 0: Khong)]-> " << RESET;
-                    int updateChoice;
-                    cin >> updateChoice;
-                    
-                    if (updateChoice == 1) {
-                        for (int i = 0; i < numFiltered; i++) {
-                            searchResults[i] = filteredResults[i];
-                        }
-                        numResults = numFiltered;
-                        cout << BLUE << "+[Thong bao]-> Da cap nhat ket qua tim kiem!" << RESET << endl;
-                    }
-                } else {
-                    cout << BLUE << "+[Thong bao]-> Khong co ket qua nao sau khi loc" << RESET << endl;
-                }
-                
-                system("pause");
-                break;
-            }
-            case 4: { // Cập nhật thông tin tài khoản
-                int index;
-                cout << GREEN << "+[Nhap STT tai khoan can cap nhat]-> " << RESET;
-                cin >> index;
-                index--; // Chuyển từ STT hiển thị sang index
-                
-                if (index >= 0 && index < numResults) {
-                    SavingsAccount *account = searchResults[index];
-                    
-                    cout << BLUE << "+[Thong bao]-> Cap nhat thong tin tai khoan: " << account->getCustomerName() << RESET << endl;
-                    
-                    cout << endl;
-                    cout << CYAN;                    cout << "+------ Menu: Cap nhat thong tin tai khoan ------+" << endl;
-                    cout << "| 1. Cap nhat ten khach hang                     |" << endl;
-                    cout << "| 2. Cap nhat so CMT/CCCD                        |" << endl;
-                    cout << "| 3. Cap nhat so du                              |" << endl;
-                    cout << "| 4. Cap nhat lai suat                           |" << endl;
-                    if (account->getAccountType() == "Term") {
-                        cout << "| 5. Cap nhat ky han                             |" << endl;
-                    }
-                    cout << "| 0. Quay lai                                    |" << endl;
-                    cout << "+-----------------------------------------------+" << endl;
-                    cout << RESET;
-                    
-                    int maxChoice = (account->getAccountType() == "Term") ? 5 : 4;
-                    int updateChoice = getChoice(maxChoice);
-                    cin.ignore();
-                    
-                    switch (updateChoice) {
-                        case 1: {
-                            string name;
-                            cout << GREEN << "+[Nhap ten moi]-> " << RESET;
-                            getline(cin, name);
-                            name = correctName(name);
-                            account->setCustomerName(name);
-                            cout << BLUE << "+[Thong bao]-> Da cap nhat ten thanh cong!" << RESET << endl;
-                            break;
-                        }
-                        case 2: {
-                            string idNumber;
-                            cout << GREEN << "+[Nhap so CMT/CCCD moi]-> " << RESET;
-                            getline(cin, idNumber);
-                            account->setIdNumber(idNumber);
-                            cout << BLUE << "+[Thong bao]-> Da cap nhat so CMT/CCCD thanh cong!" << RESET << endl;
-                            break;
-                        }
-                        case 3: {
-                            double amount;
-                            cout << GREEN << "+[Nhap so du moi]-> " << RESET;
-                            cin >> amount;
-                            account->setDepositAmount(amount);
-                            cout << BLUE << "+[Thong bao]-> Da cap nhat so du thanh cong!" << RESET << endl;
-                            break;
-                        }                        case 4: {
-                            double rate;
-                            cout << GREEN << "+[Nhap lai suat moi (%)]-> " << RESET;
-                            cin >> rate;
-                            account->setInterestRate(rate);
-                            cout << BLUE << "+[Thong bao]-> Da cap nhat lai suat thanh cong!" << RESET << endl;
-                            break;
-                        }
-                        case 5: {
-                            if (account->getAccountType() == "Term") {
-                                int term;
-                                cout << GREEN << "+[Nhap ky han moi (thang)]-> " << RESET;
-                                cin >> term;
-                                account->setTerm(term);
-                                cout << BLUE << "+[Thong bao]-> Da cap nhat ky han thanh cong!" << RESET << endl;
-                            }
-                            break;
-                        }
-                    }
-                      // Hiển thị lại tài khoản sau khi cập nhật
-                    if (updateChoice > 0) {
-                        cout << BLUE << "+[Thong bao]-> Thong tin tai khoan sau khi cap nhat:" << RESET << endl;
-                        SavingsAccount *temp[1] = {account};
-                        outputData(temp, 1);
-                        
-                        // Lưu thay đổi vào file
-                        if (bank != nullptr) {
-                            bank->saveToFile();
-                            cout << BLUE << "+[Thong bao]-> Da luu thay doi vao file!" << RESET << endl;
-                        }
-                    }
-                } else {
-                    cout << YELLOW << "+[Canh bao]-> STT khong hop le!" << RESET << endl;
-                }
-                system("pause");
-                break;
-            }
-            case 5: { // Xóa tài khoản
-                int index;
-                cout << GREEN << "+[Nhap STT tai khoan can xoa]-> " << RESET;
-                cin >> index;
-                index--; // Chuyển từ STT hiển thị sang index
-                
-                if (index >= 0 && index < numResults) {
-                    SavingsAccount *account = searchResults[index];
-                    
-                    cout << YELLOW << "+[Canh bao]-> Ban co chac chan muon xoa tai khoan: " 
-                         << account->getCustomerName() << " (" << account->getCustomerId() << ")? (1: Co, 0: Khong)]-> " << RESET;
-                    int confirm;
-                    cin >> confirm;
-                    
-                    if (confirm == 1) {
-                        string customerId = account->getCustomerId();
-                        
-                        // Lấy con trỏ đến đối tượng Bank từ main
-                        extern Bank *bank; // Giả sử có biến global hoặc bạn cần thay đổi cách lấy bank
-                        
-                        if (bank != nullptr) {
-                            bank->removeAccount(customerId);
-                            
-                            // Cập nhật lại mảng kết quả tìm kiếm
-                            for (int i = index; i < numResults - 1; i++) {
-                                searchResults[i] = searchResults[i + 1];
-                            }
-                            numResults--;
-                            
-                            cout << BLUE << "+[Thong bao]-> Xoa tai khoan thanh cong!" << RESET << endl;
-                            cout << BLUE << "+[Thong bao]-> Danh sach sau khi xoa:" << RESET << endl;
-                            outputData(searchResults, numResults);
-                        } else {
-                            cout << RED << "+[Loi]-> Khong the xoa tai khoan!" << RESET << endl;
-                        }
-                    }
-                } else {
-                    cout << YELLOW << "+[Canh bao]-> STT khong hop le!" << RESET << endl;
-                }
-                system("pause");
-                break;
-            }
-        }
     }
 }
