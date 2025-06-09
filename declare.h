@@ -30,20 +30,29 @@ void exportTable(SavingsAccount *accounts[], int n); // Xuất các sổ tiết 
 
 // Khai báo các hàm trong file "include/menu.h"
 void showMenu(); // Hàm hiển thị menu
+void showMenu1(); // Hiển thị menu của lựa chọn 1
+void showMenu1_1(); // Hiển thị menu của lựa chọn 1.1
+void showMenu1_2(); // Hiển thị menu của lựa chọn 1.2
+void showMenu3(); // Hiển thị mnenu của lựa chọn 3
+void showMenu4(); // Hiển thị menu của lựa chọn 4
+void showMenu5(); // Hiển thị menu của lựa chọn 5
+void showmenu5_1(); // Hiển thị menu của lựa chọn 5.1
+void showMenu5_1_1(); // Hiển thị menu sau khi tìm kiếm có kết quả
+void showMenu5_2(); // Hiển thị menu của lựa chọn 5.2
 int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo = ""); // Hàm trả về lựa chọn từ menu
+bool handleRemoveAccountChoice(Bank &B, const string &customerId); // Hàm chung xử lí xoá tài khoản
+void handleChoice1_1(Bank &B); // Xử lí lựa chọn menu 1.1
+void handleChoice1_2(Bank &B); // Xử lí lựa chọn menu 1.2
+void handleChoice1(Bank &B); // Xử lí lựa chọn 1
+void handleChoice2(Bank &B); // Xử lí lựa chọn 2
+void handleChoice3(Bank &B); // Xử lí lựa chọn 3
+void handleChoice4(Bank &B); // Xử lí lựa chọn 4
+void handleChoice5_1_1(Bank &B); // Xử lí kết quả sau khi tìm kiếm
+void handleChoice5_1(Bank &B); // Xử lí lựa chọn menu 5.1
+void handleChoice5_2(Bank &B); // Xử lí lựa chọn menu 5.2
+void handleChoice5(Bank &B); // Xử lí lựa chọn 5
+void handleChoice6(Bank &B); // Xử lí lựa chọn 6
+void handleChoice7(Bank &B); // Xử lí lựa chọn 7
+void handleChoice8(Bank &B); // Xử lí lựa chọn 8
+void handleChoice9(Bank &B); // Xử lí lựa chọn 9
 void handleMainMenu(Bank &B, const int &sl); // Hàm xử lí các lựa chọn trong menu chính
-
-
-
-
-
-
-
-
-
-
-// beta
-// Sử dụng trong hàm handleSearchResults để lấy con trỏ đến đối tượng Bank hiện tại
-Bank *bank = nullptr;
-void exportToTextFile(SavingsAccount *accounts[], int n, const string &filename);
-void handleSearchResults(SavingsAccount *searchResults[], int &numResults);

@@ -30,32 +30,28 @@ bool running = true; // Biến trạng thái chạy của hệ thống
 #include "include/class.h"
 #include "include/functions.h"
 #include "include/iofile.h"
-#include "include/menu.h"
+#include "include/menu.h"   
 
 int main() {
+    // Tạo đối tượng ngân hàng để quản lí sổ tiết kiệm
     Bank B;
     B.loadFromFile();
-    //B.saveToFile()
-    
-    // beta - Set global bank pointer for search result operations
-    bank = &B;
 
     // Hiển thị menu chính
     while(running) {
         system("cls");
         cout << CYAN;
-        cout << setw(75) << "/-------------------------------------\\" << endl
-             << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>";
-        cout << WHITE;
-        cout << " HE THONG QUAN LI TAI KHOAN TIET KIEM ";
-        cout << CYAN;
-        cout << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl
-             << setw(75) << "\\-------------------------------------/" << endl;
+        cout << setw(69) << "/-------------------------------\\" << endl
+             << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+             << " HE THONG QUAN LI SO TIET KIEM "
+             << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
+        cout << setw(69) << "\\-------------------------------/" << endl;
         cout << RESET;
         handleMainMenu(B);
     }
 
     system("pause");
+    return 0;
 }
 
 
