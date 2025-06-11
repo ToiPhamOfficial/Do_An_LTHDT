@@ -23,12 +23,16 @@ void splitData(const string &s, string d_arr[], const int &n, const char &delimi
     }
 }
 
+double roundToTwoDecimals(double x) {
+    return round(x * 100.0) / 100.0;
+}
+
 string formatVND(const double &amount) {
     // Làm tròn đến 2 chữ số thập phân
-    double roundedAmount = round(amount * 100.0) / 100.0;
+    double roundedAmount = roundToTwoDecimals(amount);
     // Tách phần nguyên và phần thập phân
-    long long integerPart = static_cast<long long>(roundedAmount);
-    int decimalPart = static_cast<int>(round((roundedAmount - integerPart) * 100));
+    long long integerPart = (long long)(roundedAmount);
+    int decimalPart = (int)(round((roundedAmount - integerPart) * 100));
     // Format phần nguyên với dấu phẩy
     string numStr = to_string(integerPart);
     int n = numStr.length() - 3;
@@ -40,17 +44,6 @@ string formatVND(const double &amount) {
     ostringstream oss;
     oss << numStr << "." << setfill('0') << setw(2) << decimalPart;
     return oss.str();
-}
-
-template <class T>
-void customSort(T *arr[], const int& n, bool (*cmp)(T*, T*), bool ascending) {
-    for(int i = 0; i < n; i++) {
-        for(int j = i; j < n; j++) {
-            if(ascending ? cmp(arr[j], arr[i]) : cmp(arr[i], arr[j])) {
-                swap(arr[i], arr[j]);
-            }
-        }
-    }
 }
 
 string correctName(const string &str) {
@@ -68,4 +61,15 @@ string correctName(const string &str) {
         result += word;
     }
     return result;
+}
+
+template <class T>
+void customSort(T *arr[], const int& n, bool (*cmp)(T*, T*), bool ascending) {
+    for(int i = 0; i < n; i++) {
+        for(int j = i; j < n; j++) {
+            if(ascending ? cmp(arr[j], arr[i]) : cmp(arr[i], arr[j])) {
+                swap(arr[i], arr[j]);
+            }
+        }
+    }
 }

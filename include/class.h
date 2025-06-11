@@ -43,11 +43,11 @@ void Date::input() {
     } while (month < 1 || month > 12);
 
     do {
-        cout << " +[Nhap nam (1900-2100)]-> ";
+        cout << " +[Nhap nam (1900-2025)]-> ";
         cin >> year;
-        if (year < 1900 || year > 2100) 
+        if (year < 1900 || year > 2025) 
             cout << "Nam khong hop le, hay nhap lai!" << endl;
-    } while (year < 1900 || year > 2100);
+    } while (year < 1900 || year > 2025);
 
     if (!isValidDate(day, month, year)) {
         cout << "Ngay thang nam khong hop le, hay nhap lai!" << endl;
@@ -137,6 +137,7 @@ class SavingsAccount {
   	public:
         SavingsAccount(); // Hàm thiết lập
         virtual void input(); // Hàm nhập thông tin sổ tiết kiệm
+        virtual void update(); // Hàm cập nhật sổ tiết kiệm
 		string getCustomerName(); // Hàm trả về tên khách hàng
 		string getCustomerId(); // Hàm trả về mã khách hàng
 		string getIdNumber(); // Hàm trả về số CCCD của kháchh hàng
@@ -169,23 +170,22 @@ void SavingsAccount::input() {
   double inputAmount, inputRate;
   // Nhập tên khách hàng
   do {
-    cout << "GREEN" << "+[Nhap ten khach hang]-> " << RESET;
-    //cin >> ws;
+    cout << GREEN << "+[Nhap ten khach hang]-> " << RESET;
     getline(cin, inputName); 
+    inputName = trim(inputName);
     inputName = correctName(inputName);
-    if(inputName.length() > 22) {
-        cout << YELLOW << "+[Canh bao]-> Khong duoc qua 22 ky tu, hay nhap lai." << RESET << endl;
+    if(inputName.length() > 21) {
+        cout << YELLOW << "+[Canh bao]-> Khong duoc qua 21 ky tu, hay nhap lai." << RESET << endl;
     } else {
         customerName = inputName;
         break;
     }
-  } while(inputName.length() > 22);
-
+  } while(inputName.length() > 21);
   // Nhập số CCCD
   do {
-    //cin >> ws;
-    cout << "GREEN" << "+[Nhap so CCCD]-> " << RESET;
-    cin >> inputId; 
+    cout << GREEN << "+[Nhap so CCCD]-> " << RESET;
+    getline(cin, inputId);
+    inputId = trim(inputId);
     if(inputId.length() != 12 /* thêm kiểm tra chuỗi số nguyên */) {
         cout << YELLOW << "+[Canh bao]-> CCCD phai gom 12 so" << RESET << endl;
     } else {
@@ -193,7 +193,6 @@ void SavingsAccount::input() {
         break;
     }
   } while(inputId.length() != 12);
-
   // Nhập số tiền gửi
   do {
     cout << GREEN << "+[Nhap so tien gui]-> " << RESET;
@@ -204,14 +203,13 @@ void SavingsAccount::input() {
         cout << YELLOW << "+[Canh bao]-> Vui long nhap so du hop le!" << RESET << endl;
         continue;
     }
-    if(inputAmount < 100000.0 && inputAmount > 999999999999.0) {
-        cout << YELLOW << "+[Canh bao]-> So du toi da cho phep  > 100,000 VND và < 999,999,999,999 VND" << RESET << endl;
+    if(inputAmount < 100000.0 || inputAmount > 999999999999.0) {
+        cout << YELLOW << "+[Canh bao]-> So du cho phep  > 100,000 VND va < 999,999,999,999 VND" << RESET << endl;
     } else {
         // thêm làm tròn đến 2 chữ số
         depositAmount = inputAmount;
     }
   } while(inputAmount > 999999999999.0);
-
   // Nhập lãi suất
   do {
     cout << GREEN << "+[Nhap lai suat]-> " << RESET;
@@ -222,17 +220,99 @@ void SavingsAccount::input() {
         cout << YELLOW << "+[Canh bao]-> Vui long nhap lai suat hop le!" << RESET << endl;
         continue;
     }
-    if(inputRate <= 0 && inputRate > 10.0) {
-        cout << YELLOW << "+[Canh bao]-> Lai suat toi da cho phép > 0 và <= 10%" << RESET << endl;
+    if(inputRate <= 0 || inputRate > 10.0) {
+        cout << YELLOW << "+[Canh bao]-> Lai suat cho phep > 0 va <= 10%" << RESET << endl;
     } else {
         // thêm phần làm tròn đến 2 chữ số
         interestRate = inputRate;
     }
   } while(inputRate <= 0 && inputRate > 10.0);
-  
   // Nhập ngày mở tài khoản
-  cout << "GREEN" << "+[Nhap ngay mo tai khoan]-> " << RESET << endl;
+  cout << GREEN << "+[Nhap ngay mo tai khoan]: " << RESET << endl;
   openDate.input();
+}
+
+void SavingsAccount::update() {
+  string inputName, inputId;
+  double inputAmount, inputRate;
+  // Nhập tên khách hàng
+  do {
+    cout << GREEN << "+[Nhap ten khach hang moi (0: bo qua)]-> " << RESET;
+    getline(cin, inputName);
+    inputName = trim(inputName);
+    if(inputName == "0") {
+        break;
+    }
+    inputName = correctName(inputName);
+    if(inputName.length() > 21) {
+        cout << YELLOW << "+[Canh bao]-> Khong duoc qua 21 ky tu, hay nhap lai." << RESET << endl;
+    } else {
+        customerName = inputName;
+        break;
+    }
+  } while(inputName.length() > 21);
+  // Nhập số CCCD
+  do {
+    cout << GREEN << "+[Nhap so CCCD moi (0: bo qua)]-> " << RESET;
+    getline(cin, inputId);
+    inputId = trim(inputId);
+    if(inputId == "0") {
+        break;
+    }
+    if(inputId.length() != 12 /* thêm kiểm tra chuỗi số nguyên */) {
+        cout << YELLOW << "+[Canh bao]-> CCCD phai gom 12 so" << RESET << endl;
+    } else {
+        idNumber = inputId;
+        break;
+    }
+  } while(inputId.length() != 12);
+  // Nhập số tiền gửi
+  do {
+    cout << GREEN << "+[Nhap so tien gui moi (0: bo qua)]-> " << RESET;
+    cin >> inputAmount;
+    if(inputAmount == 0.0) {
+        break;
+    }
+    if(cin.fail()) {
+        cin.clear();
+        cin.ignore(999, '\n');
+        cout << YELLOW << "+[Canh bao]-> Vui long nhap so du hop le!" << RESET << endl;
+        continue;
+    }
+    if(inputAmount < 100000.0 || inputAmount > 999999999999.0) {
+        cout << YELLOW << "+[Canh bao]-> So du cho phep  > 100,000 VND va < 999,999,999,999 VND" << RESET << endl;
+    } else {
+        // thêm làm tròn đến 2 chữ số
+        depositAmount = inputAmount;
+    }
+  } while(inputAmount < 100000.0 || inputAmount > 999999999999.0);
+  // Nhập lãi suất
+  do {
+    cout << GREEN << "+[Nhap lai suat moi (0: bo qua)]-> " << RESET;
+    cin >> inputRate;
+    if(inputRate == 0.0) {
+        break;
+    }
+    if(cin.fail()) {
+        cin.clear();
+        cin.ignore(999, '\n');
+        cout << YELLOW << "+[Canh bao]-> Vui long nhap lai suat hop le!" << RESET << endl;
+        continue;
+    }
+    if(inputRate < 0.0 || inputRate > 10.0) {
+        cout << YELLOW << "+[Canh bao]-> Lai suat cho phep > 0 va <= 10%" << RESET << endl;
+    } else {
+        // thêm phần làm tròn đến 2 chữ số
+        interestRate = inputRate;
+    }
+  } while(inputRate < 0 && inputRate > 10.0);
+  // Nhập ngày mở tài khoản
+  char c;
+  cout << GREEN << "+[Nhap ngay mo tai khoan moi (0: bo qua)]: " << RESET;
+  cin >> c;
+  if(c != '0') {
+    openDate.input(); 
+  }
 }
 
 string SavingsAccount::getCustomerName() {
@@ -380,7 +460,7 @@ double TermAccount::calculateInterest() {
 
 string TermAccount::toString() {
     ostringstream os;
-    os << SavingsAccount::toString() << term;
+    os << SavingsAccount::toString() << " | " << term;
     return os.str();
 }
 
@@ -448,6 +528,7 @@ class Bank {
 		SavingsAccount *accounts[MAX_CUSTOMER];
 	public:
 		Bank(); // Hàm thiết lập
+        void update(); // Hàm cập nhật thông tin ngân hàng
 		void addAccount(const int &accountType); // Hàm thêm tài khoản vào ngân hàng
 		string getName(); // Hàm trả về tên của ngân hàng
         string getAddress(); // Hàm trả về  địa chỉ của ngân hàng
@@ -455,18 +536,15 @@ class Bank {
         string getTaxCode(); // Hàm trả về mã số thuế của ngân hàng
         string getEmail(); // Hàm trả về email của ngân hàng
         int getNumAccounts(); // Hàm lấy số lượng tài khoản tiết kiệm
-		/*void setName(const string &name); // Hàm đặt tên của ngân hàng
-        void setAddress(const string &address); // Hàm đặt địa chỉ của ngân hàng
-        void setTaxCode(const string &taxCode); // Hàm đặt mã số thuế của ngân hàng
-        void setPhone(const string &phone); // Hàm đặt số điện thoại chăm sóc khách hàng của ngân hàng
-        void setEmail(const string &email); // Hàm đặt email của ngân hàng*/
         string toString(); // Dịnh dạng thông tin ngân hàng thành chuỗi
         void loadFromFile(); // Tải thông tin ngân hàng từ tệp
 		void saveToFile(); // Lưu thông tin ngân hàng đến tệp
         
         bool accountExists(const string &customerId); // Kiểm tra xem sổ tiết kiệm có tồn tại hay không
+        void updateAccountInfo(const string &customerId);
 		bool removeAccount(const string &customerId); // Hàm xoá tài khoản khỏi ngân hàng
-        void showAccounts(const int mod); // Hàm hiển thị các sổ tiết kiệm theo kiểu lựa chọn
+        void showAccounts(const int &mod); // Hàm hiển thị các sổ tiết kiệm theo kiểu lựa chọn
+        void calculateInterestPerAccount(); // Hàm tính tiền lãi mỗi sổ tiết kiệm
 
         ~Bank(); // Hàm huỷ bỏ
 
@@ -476,15 +554,54 @@ class Bank {
         void sortByName(bool ascending = true);
         void sortByBalance(bool ascending = true);
         
-        void findAccountByCustomerId();
-        void findAccountByCustomerName();
-        void findAccountByIdNumber();
-        void findAccountByOpenDate();
-        void findAccountByInterestRate();
+        // hàm test trước
+        int countAccountsByType(const int &type);
+        double calculateTotalBalance();
+        double calculateTotalInterest();
+
 };
 
 Bank::Bank() {
     name = address = taxCode = phone = email = "";
+}
+
+void Bank::update() {
+    string newName, newAddress, newTaxCode, newPhone, newEmail;
+    // Nhập tên ngân hàng
+    do {
+        cout << GREEN << "+[Nhap ten ngan hang]-> " << RESET;
+        cin.ignore();
+        getline(cin, newName);
+        newName = trim(newName);
+        if(newName.length() > 50) {
+            cout << YELLOW << "+[Canh bao]-> Ten ngan hang khong duoc qua 50 ky tu" << RESET << endl;
+        } else {
+            name = newName; // Cập nhật tên ngân hàng
+            break; // Thoát vòng lặp nếu tên hợp lệ
+        }
+    } while(newName.length() > 50);
+    // Nhập địa chỉ ngân hàng
+    cout << GREEN << "+[Nhap dia chi ngan hang]-> " << RESET;
+    getline(cin, newAddress);
+    newAddress = trim(newAddress);
+    address = newAddress; // Cập nhật địa chỉ ngân hàng
+    // Nhập mã số thuế ngân hàng
+    cout << GREEN << "+[Nhap ma so thue ngan hang]-> " << RESET;
+    getline(cin, newTaxCode);
+    newTaxCode = trim(newTaxCode);
+    taxCode = newTaxCode; // Cập nhật mã số thuế ngân hàng
+    // Nhập số điện thoại ngân hàng
+    cout << GREEN << "+[Nhap so dien thoai ngan hang]-> " << RESET;
+    getline(cin, newPhone);
+    newPhone = trim(newPhone);
+    phone = newPhone; // Cập nhật số điện thoại ngân hàng
+    // Nhập email ngân hàng
+    cout << GREEN << "+[Nhap email ngan hang]-> " << RESET;
+    getline(cin, newEmail);
+    newEmail = trim(newEmail);
+    email = newEmail; // Cập nhật email ngân hàng
+    // Lưu thông tin ngân hàng vào tệp
+    saveToFile();
 }
 
 void Bank::addAccount(const int &accountType) {
@@ -529,26 +646,6 @@ int Bank::getNumAccounts() {
     return numAccounts;
 }
 
-/*void Bank::setName(const string &name) {
-    this->name = name;
-}
-
-void Bank::setAddress(const string &address) {
-    this->address = address;
-}
-
-void Bank::setTaxCode(const string &taxCode) {
-    this->taxCode = taxCode;
-}
-
-void Bank::setPhone(const string &phone) {
-    this->phone = phone;
-}
-
-void Bank::setEmail(const string &email) {
-    this->email = email;
-}*/
-
 bool Bank::accountExists(const string &customerId) {
     for (int i = 0; i < numAccounts; i++) {
         if (accounts[i]->getCustomerId() == customerId) {
@@ -556,6 +653,20 @@ bool Bank::accountExists(const string &customerId) {
         }
     }
     return false;
+}
+
+void Bank::updateAccountInfo(const string &customerId) {
+    int foundIndex = -1;
+    for(int i = 0; i < numAccounts; i++) {
+        if(accounts[i]->getCustomerId() == customerId) {
+            foundIndex = i;
+            break;
+        }
+    }
+    if(foundIndex == -1) {
+        return;
+    }
+    accounts[foundIndex]->update();
 }
 
 bool Bank::removeAccount(const string &customerId) {
@@ -655,7 +766,7 @@ void Bank::saveToFile() {
     }
 }
 
-void Bank::showAccounts(const int mod) {
+void Bank::showAccounts(const int &mod) {
     ofstream wf("data/output.data");
     if(!wf) {
         cout << YELLOW << "+[Canh bao]-> Doc tep that bai. Vui long kiem tra lai tep" << RESET << endl;
@@ -693,6 +804,24 @@ void Bank::showAccounts(const int mod) {
     wf.close();
 }
 
+void Bank::calculateInterestPerAccount() {
+    ofstream wf("data/output.data");
+    if(!wf) {
+        cout << YELLOW << "+[Canh bao]-> Doc tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        return;
+    }
+    wf << setw(80) << "-Tien lai moi so-\n\n";
+    wf << getHorizontalBorder(2);
+    wf << getTableHeader(2);
+    wf << getHorizontalBorder(2);
+    for(int i = 0; i < numAccounts; i++) {
+        wf << getTableRow(2, accounts[i], i);
+        wf << getHorizontalBorder(2);
+    }
+
+    wf.close();
+}
+
 Bank::~Bank() {}
 
 
@@ -715,209 +844,33 @@ void Bank::sortByBalance(bool ascending) {
     //exportTable(accounts, numAccounts);
 }
 
-
-// Các hàm tìm kiếm
-void Bank::findAccountByCustomerId() {
-    if (numAccounts == 0) {
-        cout << "+[Canh bao]-> Khong co so tiet kiem nao!" << endl;
-        system("pause");
-        return;
-    }
-
-    string searchId;
-    cout << "GREEN" << "+[Nhap ma khach hang]-> " << "\033[0m";
-    getline(cin, searchId);
-
-    ofstream wf("data/output.data");
-    if (!wf) {
-        cerr << "+[Loi]-> Khong mo duoc file de ghi ket qua!" << endl;
-        return;
-    }
-
-    bool found = false;
-    int index = 0;
-
-    for (int i = 0; i < numAccounts; i++) {
-        if (accounts[i]->getCustomerId() == searchId) {
-            if (!found) {
-                wf << "\n\n\n=============================== DANH SACH SO TIET KIEM TIM KIEM MA KHACH HANG =========================================\n\n";
-                wf << getHorizontalBorder(1);
-                wf << getTableHeader(1);
-                wf << getHorizontalBorder(1);
-                found = true;
-            }
-            wf << getTableRow(1, accounts[i], index++);
-            wf << getHorizontalBorder(1);
+int Bank::countAccountsByType(const int &type) {
+    // 1: Có kỳ hạn
+    // 2: Không kỳ hạn
+    int c = 0;
+    for(int i = 0; i < numAccounts; i++) {
+        char at = accounts[i]->getCustomerId()[0];
+        if(type == 1 && at == 'T') {
+            c++;
+        } else if(type == 2 && at == 'N') {
+            c++;
         }
     }
-
-    wf.close();
-
-    if (!found) {
-        cout << "+[Thong bao]-> Khong tim thay khach hang nao co ma: " << searchId << endl;
-    } else {
-        cout << "+[Thong bao]-> Da ghi ket qua vao file 'data/output.data'\n";
-    }
-
-    system("pause");
+    return c;
 }
 
-void Bank::findAccountByCustomerName() {
-    if (numAccounts == 0) {
-        cout << "+[Canh bao]-> Khong co so tiet kiem nao!" << endl;
-        system("pause");
-        return;
+double Bank::calculateTotalBalance() {
+    double totalBalance = 0;
+    for(int i = 0; i < numAccounts; i++) {
+        totalBalance += accounts[i]->getDepositAmount();
     }
-
-    string name;
-    cout << "GREEN" << "+[Nhap ten khach hang]-> " << "\033[0m";
-    getline(cin, name);
-
-    ofstream wf("data/output.data");
-    if (!wf) {
-        cerr << "+[Loi]-> Khong mo duoc file!" << endl;
-        return;
-    }
-
-    bool found = false;
-    int index = 0;
-
-    for (int i = 0; i < numAccounts; i++) {
-        if (accounts[i]->getCustomerName() == name) {
-            if (!found) {
-                wf << "=========== DANH SACH SO TIET KIEM TIM KIEM THEO TEN KHACH HANG ===========\n\n";
-                wf << getHorizontalBorder(1);
-                wf << getTableHeader(1);
-                wf << getHorizontalBorder(1);
-                found = true;
-            }
-            wf << getTableRow(1, accounts[i], index++);
-            wf << getHorizontalBorder(1);
-        }
-    }
-
-    wf.close();
-    if (!found) cout << "+[Thong bao]-> Khong tim thay ten khach hang!" << endl;
-    system("pause");
+    return totalBalance;
 }
 
-void Bank::findAccountByIdNumber() {
-    if (numAccounts == 0) {
-        cout << "+[Canh bao]-> Khong co so tiet kiem nao!" << endl;
-        system("pause");
-        return;
+double Bank::calculateTotalInterest() {
+    double totalInterest = 0;
+    for(int i = 0; i < numAccounts; i++) {
+        totalInterest += accounts[i]->calculateInterest();
     }
-
-    string id;
-    cout << "GREEN" << "+[Nhap so CCCD]-> " << "\033[0m";
-    getline(cin, id);
-
-    ofstream wf("data/output.data");
-    if (!wf) {
-        cerr << "+[Loi]-> Khong mo duoc file!" << endl;
-        return;
-    }
-
-    bool found = false;
-    int index = 0;
-
-    for (int i = 0; i < numAccounts; i++) {
-        if (accounts[i]->getIdNumber() == id) {
-            if (!found) {
-                wf << "\n\n\n=========== DANH SACH SO TIET KIEM TIM KIEM THEO CCCD/CMT ===========\n\n";
-                wf << getHorizontalBorder(1);
-                wf << getTableHeader(1);
-                wf << getHorizontalBorder(1);
-                found = true;
-            }
-            wf << getTableRow(1, accounts[i], index++);
-            wf << getHorizontalBorder(1);
-        }
-    }
-
-    wf.close();
-    if (!found) cout << "+[Thong bao]-> Khong tim thay CCCD/CMT!" << endl;
-    system("pause");
-}
-
-void Bank::findAccountByOpenDate() {
-    if (numAccounts == 0) {
-        cout << "+[Canh bao]-> Khong co so tiet kiem nao!" << endl;
-        system("pause");
-        return;
-    }
-
-    int d, m, y;
-    cout << "GREEN" << "+[Nhap ngay mo (d m y)]-> " << "\033[0m";
-    cin >> d >> m >> y;
-    cin.ignore();
-
-    Date inputDate(d, m, y); // Giả sử bạn có lớp Date(d, m, y)
-
-    ofstream wf("data/output.data");
-    if (!wf) {
-        cerr << "+[Loi]-> Khong mo duoc file!" << endl;
-        return;
-    }
-
-    bool found = false;
-    int index = 0;
-
-    for (int i = 0; i < numAccounts; i++) {
-        if (accounts[i]->getOpenDate() == inputDate) {
-            if (!found) {
-                wf << "\n\n\n=========== DANH SACH SO TIET KIEM TIM KIEM THEO NGAY MO ===========\n\n";
-                wf << getHorizontalBorder(1);
-                wf << getTableHeader(1);
-                wf << getHorizontalBorder(1);
-                found = true;
-            }
-            wf << getTableRow(1, accounts[i], index++);
-            wf << getHorizontalBorder(1);
-        }
-    }
-
-    wf.close();
-    if (!found) cout << "+[Thong bao]-> Khong tim thay ngay mo tuong ung!" << endl;
-    system("pause");
-}
-
-void Bank::findAccountByInterestRate() {
-    if (numAccounts == 0) {
-        cout << "+[Canh bao]-> Khong co so tiet kiem nao!" << endl;
-        system("pause");
-        return;
-    }
-
-    double rate;
-    cout << "GREEN" << "+[Nhap lai suat can tim]-> " << "\033[0m";
-    cin >> rate;
-    cin.ignore();
-
-    ofstream wf("data/output.data");
-    if (!wf) {
-        cerr << "+[Loi]-> Khong mo duoc file!" << endl;
-        return;
-    }
-
-    bool found = false;
-    int index = 0;
-
-    for (int i = 0; i < numAccounts; i++) {
-        if (accounts[i]->getInterestRate() == rate) {
-            if (!found) {
-                wf << "\n\n\n=========== DANH SACH SO TIET KIEM TIM KIEM THEO LAI SUAT ===========\n\n";
-                wf << getHorizontalBorder(1);
-                wf << getTableHeader(1);
-                wf << getHorizontalBorder(1);
-                found = true;
-            }
-            wf << getTableRow(1, accounts[i], index++);
-            wf << getHorizontalBorder(1);
-        }
-    }
-
-    wf.close();
-    if (!found) cout << "+[Thong bao]-> Khong tim thay lai suat tuong ung!" << endl;
-    system("pause");
+    return totalInterest;
 }

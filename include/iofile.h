@@ -3,28 +3,16 @@
 -- Số hàm: ...
 */
 
-void exportBankInfo(Bank &B) {
-    ofstream wf("data/output.data");
-    wf << "+-----------------------------------------------+" << endl
-       << "| Ten ngan hang: " << setw(31) << B.getName() << "|" << endl
-       << "| Dia chi: " << setw(37) << B.getAddress() << "|" << endl
-       << "| Ma so thue: " << setw(34) << B.getTaxCode() << "|" << endl
-       << "| Dien thoai: " << setw(34) << B.getPhone() << "|" << endl
-       << "| Email: " << setw(39) << B.getEmail() << "|" << endl;
-    wf << "+-----------------------------------------------+" << endl;
-}
-
 string getHorizontalBorder(const int &type) {
-    string p1 = "+-----+---------+----------------------+--------------+-------------+";
-    string p2 = "-------------------+--------------+----------------+";
-    string type1 = p1 + p2 + "\n";
-    string type2 = p1 + p2 + "-----------+\n";
-    if(type == 1) {
-        return type1;
-    } else if(type == 2) {
-        return type2;
-    } else {
-        return "";
+    string p1 = "+-----+---------+----------------------+--------------+------------+";
+    string p2 = "--------------------+--------------+----------------+";
+    switch(type) {
+        case 1:
+            return p1 + p2 + "\n";
+        case 2:
+            return p1 + p2 + "--------------------+\n";
+        default:
+            return "";
     }
 }
 
@@ -32,16 +20,19 @@ string getTableHeader(const int &type) {
     ostringstream os;
     os << "|" << " STT " << "|" << "   MKH   "
        << "|" << "      Khach hang      " << "|" << "   CMT/CCCD   " 
-       << "|" << "   Ngay mo   " << "|" << "    So du (VND)    "
+       << "|" << "   Ngay mo  " << "|" << "     So du (VND)    "
        << "|" << " Lai suat (%) " << "|" << " Ky han (thang) " << "|";
-    if(type == 1) {
-        os << endl;
-        return os.str();
-    } else if(type == 2) {
-        os << "   Tien lai    " << endl;
-        return os.str();
-    } else {
-        return "";
+    switch(type) {
+        case 1: {
+            os << endl;
+            return os.str();
+        }
+        case 2: {
+            os << "   Tien lai (VND)   " << "|" << endl;
+            return os.str();
+        }
+        default:
+            return "";
     }
 }
 
@@ -52,20 +43,58 @@ string getTableRow(const int &type, SavingsAccount *acc, const int &i) {
        << "| " << setw(8) << acc->getCustomerId()
        << "| " << setw(21) << acc->getCustomerName()
        << "| " << setw(13) << acc->getIdNumber()
-       << "| " << setw(12) << acc->getOpenDate().toString()
-       << "| " << setw(18) << formatVND(acc->getDepositAmount())
+       << "| " << setw(11) << acc->getOpenDate().toString()
+       << "| " << setw(19) << formatVND(acc->getDepositAmount())
        << "| " << setw(13) << acc->getInterestRate()
-       << "| " << setw(15) << ((acc->getTerm() == 0) ? "N/A" : to_string(acc->getTerm())) 
-       << "| ";
-    if(type == 1) {
-        os << endl;
-        return os.str();
-    } else if(type == 2) {
-        os << acc->calculateInterest() << "| ";
-        return os.str();
-    } else {
-        return "";
+       << "| " << setw(15) << ((acc->getTerm() == 0) ? "N/A" : to_string(acc->getTerm()));
+    switch(type) {
+        case 1: {
+            os << "|" << endl;
+            return os.str();
+        }
+        case 2: {
+            os << "| " << setw(19) << formatVND(acc->calculateInterest()) << "|" << endl;
+            return os.str();
+        }
+        default:
+            return "";
     }
+}
+
+void exportBankInfo(Bank &B) {
+    ofstream wf("data/output.data");
+    wf << setw(48) << "-Thong tin ngan hang-\n\n";
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "|    Thong tin    |                      Noi dung                     |" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "| Ten ngan hang   | " << left << setw(50) << B.getName() << "|" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "| Dia chi         | " << left << setw(50) << B.getAddress() << "|" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "| Ma so thue      | " << left << setw(50) << B.getTaxCode() << "|" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "| Dien thoai      | " << left << setw(50) << B.getPhone() << "|" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+    wf << "| Email           | " << left << setw(50) << B.getEmail() << "|" << endl;
+    wf << "+-----------------+---------------------------------------------------+" << endl;
+}
+
+void exportBankReport(Bank &B) {
+    ofstream wf("data/output.data");
+    wf << setw(51) << "-Bao cao thong ke ngan hang-\n\n";
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "|             Thong tin             |              Noi dung             |" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "| Tong so so tiet kiem              | " << left << setw(34) << B.getNumAccounts() << "|" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "| Tong so so tiet kiem co ky han    | " << left << setw(34) << B.countAccountsByType(1) << "|" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "| Tong so so tiet kiem khong ky han | " << left << setw(34) << B.countAccountsByType(2) << "|" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "| Tong so du (VND)                  | " << left << setw(34) << formatVND(B.calculateTotalBalance()) << "|" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
+    wf << "| Tong tien lai phai tra (VND)      | " << left << setw(34) << formatVND(B.calculateTotalInterest()) << "|" << endl;
+    wf << "+-----------------------------------+-----------------------------------+" << endl;
 }
   
 void exportTable(const string &title, SavingsAccount *accounts[], int n) {

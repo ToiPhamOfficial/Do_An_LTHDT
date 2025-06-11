@@ -33,7 +33,7 @@ bool running = true; // Biến trạng thái chạy của hệ thống
 #include "include/menu.h"   
 
 int main() {
-    // Tạo đối tượng ngân hàng để quản lí sổ tiết kiệm
+    // Tạo đối tượng ngân hàng để quản lí sổ tiết kiệm 
     Bank B;
     B.loadFromFile();
 
@@ -55,4 +55,7 @@ int main() {
 }
 
 
-/// Xem dữ liệu có hợp lệ hay ko trước khi saveToFile
+/// Xem dữ liệu có hợp lệ hay ko trước khi saveToFile, ví dụ đã xoá hết tài khoản
+// viết thêm check email
+// thêm check loadfile
+// làm tròn đesn 2 chữ số thập phân khi nhập lãi và nhập dư

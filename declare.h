@@ -1,6 +1,6 @@
 /*
 -- Nội dung tệp: Nơi khai báo các lớp và hàm
--- Số lớp: ...
+-- Số lớp: 5
 -- Số hàm: ...
 */
 
@@ -12,21 +12,21 @@ class NonTermAccount;
 class Bank;
 
 // Khai báo các hàm trong file "include/functions.h"
-string trim(const string &s);  // Hàm xoá khoảng trắng 2 đầu của chuỗi
+string trim(const string &s);  // Xoá khoảng trắng 2 đầu của chuỗi
+double roundToTwoDecimals(double x); // Làm tròn số đến 2 chữ số thập phân
 void splitData(const string &s, string d_arr[], const int &n, const char &delimiter); // Chia chuỗi bằng kí tự phân cách
-string formatVND(const double &amount); // Hàm định dạng tiền Việt Nam
-bool compareByName(SavingsAccount *a, SavingsAccount *b);
-bool compareByBalance(SavingsAccount *a, SavingsAccount *b);
+string formatVND(const double &amount); // Định dạng tiền Việt Nam
+string correctName(const string &str); // Chuẩn hoá họ và tên
 template<class T>
 void customSort(T *arr[], const int &n, bool (*cmp)(T*, T*), bool ascending = true);
-string correctName(const string &str); // Hàm chuẩn hoá họ và tên
 
 // Khai báo các hàm trong file "include/iofile.h"
-string getHorizontalBorder(const int &type); // Hàm trả về đường kẻ ngang của bảng
-string getTableHeader(const int &type); //Hàm trả về các cột tiêu đề của bảng
-string getTableRow(const int &type, SavingsAccount *acc, const int &i); // Hàm trả về hàng dữ liệu mỗi sổ tiết kiệm của bảng
-void exportBankInfo(Bank &b); // Xuất thông tin ngân hàng ra tệp
-void exportTable(SavingsAccount *accounts[], int n); // Xuất các sổ tiết kiệm ra tệp
+string getHorizontalBorder(const int &type); // Trả về đường kẻ ngang của bảng
+string getTableHeader(const int &type); // Trả về các cột tiêu đề của bảng
+string getTableRow(const int &type, SavingsAccount *acc, const int &i); // Trả về hàng dữ liệu mỗi sổ tiết kiệm của bảng
+void exportBankInfo(Bank &B); // Xuất thông tin ngân hàng ra tệp
+void exportBankReport(Bank &B); // Xuất báo cáo ngân hàng
+void exportTable(const string &title, SavingsAccount *accounts[], int n); // Xuất các sổ tiết kiệm ra tệp
 
 // Khai báo các hàm trong file "include/menu.h"
 void showMenu(); // Hàm hiển thị menu
@@ -37,10 +37,9 @@ void showMenu3(); // Hiển thị mnenu của lựa chọn 3
 void showMenu4(); // Hiển thị menu của lựa chọn 4
 void showMenu5(); // Hiển thị menu của lựa chọn 5
 void showmenu5_1(); // Hiển thị menu của lựa chọn 5.1
-void showMenu5_1_1(); // Hiển thị menu sau khi tìm kiếm có kết quả
 void showMenu5_2(); // Hiển thị menu của lựa chọn 5.2
-int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo = ""); // Hàm trả về lựa chọn từ menu
-bool handleRemoveAccountChoice(Bank &B, const string &customerId); // Hàm chung xử lí xoá tài khoản
+int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo = ""); // Trả về lựa chọn từ menu
+bool handleRemoveAccountChoice(Bank &B, const string &customerId); // Xử lí các lựa chọn liên quan đến xoá tài khoản
 void handleChoice1_1(Bank &B); // Xử lí lựa chọn menu 1.1
 void handleChoice1_2(Bank &B); // Xử lí lựa chọn menu 1.2
 void handleChoice1(Bank &B); // Xử lí lựa chọn 1
@@ -55,4 +54,4 @@ void handleChoice6(Bank &B); // Xử lí lựa chọn 6
 void handleChoice7(Bank &B); // Xử lí lựa chọn 7
 void handleChoice8(Bank &B); // Xử lí lựa chọn 8
 void handleChoice9(Bank &B); // Xử lí lựa chọn 9
-void handleMainMenu(Bank &B, const int &sl); // Hàm xử lí các lựa chọn trong menu chính
+void handleMainMenu(Bank &B); // Hàm xử lí các lựa chọn trong menu chính
