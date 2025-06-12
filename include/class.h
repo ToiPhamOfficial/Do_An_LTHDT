@@ -694,10 +694,6 @@ void Bank::loadFromFile() {
     name = dataArr[0]; address = dataArr[1]; taxCode = dataArr[2];
     phone = dataArr[3]; email = dataArr[4];
     getline(rf, line);
-    if(line.empty()) {
-        numAccounts = 0;
-        return;
-    }
     // Đọc số lượng sổ tiết kiệm khách hàng
     rf >> numAccounts; rf.ignore();
     // Đọc thông tin các sổ tiết kiệm
