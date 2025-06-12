@@ -870,10 +870,10 @@ void Bank::showAccounts(const int &mod) {
             wf << setw(73) << "-Tat ca so tiet kiem-\n\n";
             break;
         case 2:
-            wf << setw(70) << "-Cac so tiet kiem co ky han-\n\n";
+            wf << setw(75) << "-Cac so tiet kiem co ky han-\n\n";
             break;
         case 3:
-            wf << setw(68) << "-Cac so tiet kiem khong ky han-\n\n";
+            wf << setw(74) << "-Cac so tiet kiem khong ky han-\n\n";
             break;
         default:
             return;

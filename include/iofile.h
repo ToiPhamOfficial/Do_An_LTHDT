@@ -19,7 +19,7 @@ string getHorizontalBorder(const int &type) {
 string getTableHeader(const int &type) {
     ostringstream os;
     os << "|" << " STT " << "|" << "   MKH   "
-       << "|" << "      Khach hang      " << "|" << "   CMT/CCCD   " 
+       << "|" << "      Khach hang      " << "|" << "     CCCD     " 
        << "|" << "   Ngay mo  " << "|" << "     So du (VND)    "
        << "|" << " Lai suat (%) " << "|" << " Ky han (thang) " << "|";
     switch(type) {
