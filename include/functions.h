@@ -63,6 +63,65 @@ string correctName(const string &str) {
     return result;
 }
 
+bool isNumberString(const string &str) {
+    if (str == "") return false;
+    for (int i = 0; i < str.length(); i++) {
+        if (!isdigit(str[i])) {
+            return false;
+        }
+    }
+    return true;
+}
+
+string toLowerCase(const string &str) {
+    string result = str;
+    for (int i = 0; i < result.length(); i++) {
+        if (result[i] >= 'A' && result[i] <= 'Z') {
+            result[i] = result[i] + ('a' - 'A');
+        }
+    }
+    return result;
+}
+
+bool isValidEmail(const string &email) {
+    int at = email.find('@');
+    int space = email.find(' ');
+    int dot = email.find('.', at); // tim '.' sau '@'
+    int com = email.rfind(".com"); // kiem tra .com o cuoi
+    // Kiem tra dieu kien
+    if (at == string::npos || at == 0 || at == email.length() - 1)
+        return false;
+    if (space != string::npos)
+        return false;
+    if (dot == string::npos || dot == email.length() - 1)
+        return false;
+    if (com == string::npos || com != email.length() - 4)
+        return false;
+    return true;
+}
+
+string reverseName(string &hoTen) {
+    string tu[100]; // mang luu cac tu, toi da 100 tu
+    int dem = 0;
+    string temp = "";
+    hoTen += ' '; // them khoang trang de tach tu cuoi
+    for (char c : hoTen) {
+        if (c != ' ') {
+            temp += c;
+        } else if (!temp.empty()) {
+            tu[dem++] = temp;
+            temp = "";
+        }
+    }
+    string ketQua = "";
+    for (int i = dem - 1; i >= 0; i--) {
+        ketQua += tu[i];
+        if (i > 0)
+            ketQua += " ";
+    }
+    return ketQua;
+}
+
 template <class T>
 void customSort(T *arr[], const int& n, bool (*cmp)(T*, T*), bool ascending) {
     for(int i = 0; i < n; i++) {

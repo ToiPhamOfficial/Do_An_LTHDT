@@ -3,132 +3,150 @@
 -- Số hàm: ...
 */
 
-void showMenu() {
+void showBanner() {
     cout << CYAN;
-	cout << "+---------------------------------------------+ \n";
-	cout << "|                    Menu                     | \n";
-	cout << "+---------------------------------------------+ \n";
-	cout << "| 1. Them/Cap nhat so tiet kiem               | \n";
-	cout << "| 2. Xoa so tiet kiem                         | \n";
-	cout << "| 3. Hien thi so tiet kiem                    | \n";
-	cout << "| 4. Sap xep so tiet kiem                     | \n";
-	cout << "| 5. Tim kiem/Loc so tiet kiem                | \n";
-	cout << "| 6. Tinh tien lai tung so tiet kiem          | \n";
-	cout << "| 7. Cap nhat thong tin ngan hang             | \n";
-	cout << "| 8. Hien thi thong tin ngan hang             | \n";
-	cout << "| 9. Bao cao thong ke ngan hang               | \n";
-	cout << "| 0. Thoat chuong trinh                       | \n";
-	cout << "+---------------------------------------------+ \n";
+    cout << setw(69) << "/-------------------------------\\" << endl
+            << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            << " HE THONG QUAN LI SO TIET KIEM "
+            << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
+    cout << setw(69) << "\\-------------------------------/" << endl;
+    cout << RESET;
+}
+
+void showMenu() {
+    string spaces(29, ' '); 
+    cout << CYAN;
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "|                    Menu                     | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "| 1. Them/Cap nhat so tiet kiem               | \n";
+	cout << spaces << "| 2. Xoa so tiet kiem                         | \n";
+	cout << spaces << "| 3. Hien thi so tiet kiem                    | \n";
+	cout << spaces << "| 4. Sap xep so tiet kiem                     | \n";
+	cout << spaces << "| 5. Tim kiem/Loc so tiet kiem                | \n";
+	cout << spaces << "| 6. Tinh tien lai tung so tiet kiem          | \n";
+	cout << spaces << "| 7. Cap nhat thong tin ngan hang             | \n";
+	cout << spaces << "| 8. Hien thi thong tin ngan hang             | \n";
+	cout << spaces << "| 9. Bao cao thong ke ngan hang               | \n";
+	cout << spaces << "| 0. Thoat chuong trinh                       | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
 void showMenu1() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-	cout << "+---------------------------------------------+ \n";
-	cout << "|       Menu: Them/Cap nhat so tiet kiem      | \n";
-	cout << "+---------------------------------------------+ \n";
-	cout << "| 1. Them so tiet kiem                        | \n";
-	cout << "| 2. Cap nhat so tiet kiem                    | \n";
-	cout << "| 0. Thoat                                    | \n";
-	cout << "+---------------------------------------------+ \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "|       Menu: Them/Cap nhat so tiet kiem      | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "| 1. Them so tiet kiem                        | \n";
+	cout << spaces << "| 2. Cap nhat so tiet kiem                    | \n";
+	cout << spaces << "| 0. Thoat                                    | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
 void showMenu1_1() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-	cout << "+---------------------------------------------+ \n";
-	cout << "|   Menu: Them/Cap nhat -> Them so tiet kiem  | \n";
-	cout << "+---------------------------------------------+ \n";
-	cout << "| 1. So tiet kiem co ky han                   | \n";
-	cout << "| 2. So tiet kiem khong ky han                | \n";
-	cout << "| 0. Thoat                                    | \n";
-	cout << "+---------------------------------------------+ \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "|   Menu: Them/Cap nhat -> Them so tiet kiem  | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "| 1. So tiet kiem co ky han                   | \n";
+	cout << spaces << "| 2. So tiet kiem khong ky han                | \n";
+	cout << spaces << "| 0. Thoat                                    | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
 void showMenu3() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-	cout << "+---------------------------------------------+ \n";
-	cout << "|         Menu: Hien thi so tiet kiem         | \n";
-	cout << "+---------------------------------------------+ \n";
-	cout << "| 1. Hien thi tat ca so tiet kiem             | \n";
-	cout << "| 2. Hien thi cac so co ky han                | \n";
-	cout << "| 3. Hien thi cac so khong ky han             | \n";
-	cout << "| 0. Thoat                                    | \n";
-	cout << "+---------------------------------------------+ \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "|         Menu: Hien thi so tiet kiem         | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "| 1. Hien thi tat ca so tiet kiem             | \n";
+	cout << spaces << "| 2. Hien thi cac so co ky han                | \n";
+	cout << spaces << "| 3. Hien thi cac so khong ky han             | \n";
+	cout << spaces << "| 0. Thoat                                    | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
 void showMenu4() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-	cout << "+---------------------------------------------+ \n";
-	cout << "|          Menu: Sap xep so tiet kiem         | \n";
-	cout << "+---------------------------------------------+ \n";
-    cout << "| 1. Sap xep theo ma khach hang               | \n";
-	cout << "| 2. Sap xep theo ho va ten                   | \n";
-	cout << "| 3. Sap xep theo ngay mo so                  | \n";
-	cout << "| 4. Sap xep theo so du                       | \n";
-	cout << "| 5. Sap xep theo lai suat                    | \n";
-    cout << "| 6. Sap xep theo ky han                      | \n";
-	cout << "| 0. Thoat                                    | \n";
-	cout << "+---------------------------------------------+ \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "|          Menu: Sap xep so tiet kiem         | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
+	cout << spaces << "| 1. Sap xep theo ten khach hang              | \n";
+	cout << spaces << "| 2. Sap xep theo ngay mo so                  | \n";
+	cout << spaces << "| 3. Sap xep theo so du                       | \n";
+	cout << spaces << "| 4. Sap xep theo lai suat                    | \n";
+    cout << spaces << "| 5. Sap xep theo ky han                      | \n";
+	cout << spaces << "| 0. Thoat                                    | \n";
+	cout << spaces << "+---------------------------------------------+ \n";
 	cout << RESET;
 }
 
 void showMenu5() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-    cout << "+---------------------------------------------+ \n";
-    cout << "|       Menu: Tim kiem/Loc so tiet kiem       | \n";
-    cout << "+---------------------------------------------+ \n";
-    cout << "| 1. Tim kiem so tiet kiem                    | \n";
-    cout << "| 2. Loc so tiet kiem                         | \n";
-    cout << "| 0. Thoat                                    | \n";
-    cout << "+---------------------------------------------+ \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "|       Menu: Tim kiem/Loc so tiet kiem       | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "| 1. Tim kiem so tiet kiem                    | \n";
+    cout << spaces << "| 2. Loc so tiet kiem                         | \n";
+    cout << spaces << "| 0. Thoat                                    | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
 void showMenu5_1() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-    cout << "+---------------------------------------------+ \n";
-    cout << "|        Menu: Tim kiem/Loc -> Tim kiem       | \n";
-    cout << "+---------------------------------------------+ \n";
-    cout << "| 1. Tim theo ten                             | \n";
-    cout << "| 2. Tim theo ma khach hang                   | \n";
-    cout << "| 3. Tim theo so CCCD                         | \n";
-    cout << "| 0. Thoat                                    | \n";
-    cout << "+---------------------------------------------+ \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "|        Menu: Tim kiem/Loc -> Tim kiem       | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "| 1. Tim theo ma khach hang                   | \n";
+    cout << spaces << "| 2. Tim theo ten                             | \n";
+    cout << spaces << "| 3. Tim theo so CCCD                         | \n";
+    cout << spaces << "| 4. Tim theo ky han                          | \n";
+    cout << spaces << "| 0. Thoat                                    | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
 void showMenu5_2() {
+    string spaces(29, ' ');
     cout << "\n";
     cout << CYAN;
-    cout << "+---------------------------------------------+ \n";
-    cout << "|  Menu: Tim kiem/Loc -> Loc so tiet kiem     | \n";
-    cout << "+---------------------------------------------+ \n";
-    cout << "| 1. Loc cac so co so du > X                  | \n";
-    cout << "| 2. Loc cac so co so du < X                  | \n";
-    cout << "| 3. Loc cac so co ngay mo trên X năm         | \n";
-    cout << "| 4. Loc cac so co ngay mo duoi X năm         | \n";
-    cout << "| 0. Thoat                                    | \n";
-    cout << "+---------------------------------------------+ \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "|  Menu: Tim kiem/Loc -> Loc so tiet kiem     | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
+    cout << spaces << "| 1. Loc theo ngay mo so tu ngay X den ngay Y | \n";
+    cout << spaces << "| 2. Loc theo so du > X va < Y                | \n";
+    cout << spaces << "| 3. Loc theo lai suat > X% va < Y%           | \n";
+    cout << spaces << "| 4. Loc theo ky han > X thang va < Y thang   | \n";
+    cout << spaces << "| 0. Thoat                                    | \n";
+    cout << spaces << "+---------------------------------------------+ \n";
     cout << RESET;
 }
 
 int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo) {
     int choice;
     while(true) {
-        cout << GREEN << "+[Nhap lua chon]";
+        cout << GREEN << "+[Nhap lua chon";
         if(!optionInfo.empty()) {
             cout << " (" << optionInfo << ")";
         }
-        cout << "-> " << RESET;
+        cout << "]-> " << RESET;
         cin >> choice;
         if(cin.fail()) {
             cin.clear();
@@ -144,24 +162,10 @@ int getChoice(const int &minChoice, const int &maxChoice, const string &optionIn
     }
 }
 
-bool handleRemoveAccountChoice(Bank &B, const string &customerId) {
-    if (!B.accountExists(customerId)) {
-        cout << YELLOW << "+[Canh bao]-> Ma khach hang khong ton tai. Vui long thu lai!" << RESET << endl;
-        return false;
-    } else {
-        int ans;
-        cout << GREEN << "+[Xac nhan xoa (1: co | 0: khong)]-> " << RESET;
-        cin >> ans;
-        if(ans == 1) {
-            B.removeAccount(customerId);
-            cout << BLUE << "+[Thong bao]-> Xoa tai khoan thanh cong" << RESET << endl;
-        }
-    }
-    return true;
-}
-
 void handleChoice1_1(Bank &B) {
     while(true) {
+        system("cls");
+        showBanner();
         showMenu1_1();
         int choice;
         choice = getChoice(0, 2);
@@ -173,6 +177,10 @@ void handleChoice1_1(Bank &B) {
 }
 
 void handleChoice1_2(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        return;
+    }
     cin.ignore();
     while(true) {
         string customerId;
@@ -192,6 +200,8 @@ void handleChoice1_2(Bank &B) {
 
 void handleChoice1(Bank &B) {
     while(true) {
+        system("cls");
+        showBanner();
         showMenu1();    
         int choice = getChoice(0, 2);
         switch(choice) {
@@ -213,6 +223,11 @@ void handleChoice1(Bank &B) {
 }
 
 void handleChoice2(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
     string customerId;
     int ans;
     while (true) {
@@ -221,10 +236,21 @@ void handleChoice2(Bank &B) {
         if(customerId == "0") {
             break;
         }
-        if(!handleRemoveAccountChoice(B, customerId)) {
+        if(!B.accountExists(customerId)) {
+            cout << YELLOW << "+[Canh bao]-> Ma khach hang khong ton tai. Vui long thu lai!" << RESET << endl;
             continue;
         }
-        cout << GREEN << "+[Ban muon xoa tai khoan nao nua khong? (1: co | 0: khong)]-> " << RESET;
+        int ans;
+        cout << GREEN << "+[Xac nhan xoa so tiet kiem " << RED << customerId << GREEN << " (1: co | 0: khong)]-> " << RESET;
+        cin >> ans;
+        if(ans) {
+            if(B.removeAccount(customerId)) {
+                cout << BLUE << "+[Thong bao]-> Da xoa so tiet kiem " << customerId << " thanh cong!" << RESET << endl;
+            } else {
+                cout << YELLOW << "+[Canh bao]-> Khong the xoa so tiet kiem " << customerId << ", vui long thu lai!" << RESET << endl;
+            }
+        }
+        cout << GREEN << "+[Ban muon xoa so tiet kiem nao nua khong? (1: co | 0: khong)]-> " << RESET;
         cin >> ans;
         if(!ans) {
             break;
@@ -234,7 +260,14 @@ void handleChoice2(Bank &B) {
 
 // Các hàm xử lí chức năng cho từng lựa chọn
 void handleChoice3(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
     while(true) {
+        system("cls");
+        showBanner();
         showMenu3();
         int choice;
         choice = getChoice(0, 3);
@@ -246,15 +279,164 @@ void handleChoice3(Bank &B) {
     }
 }
 
-void handleChoice4(Bank &B) {}
+void handleChoice4(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
+    while(true) {
+        system("cls");
+        showBanner();
+        showMenu4();
+        int choice, accending;
+        choice = getChoice(0, 5);
+        if(choice == 0) {
+            system("pause");
+            break;
+        }
+        accending = getChoice(0, 1, "0: giam dan | 1: tang dan");
+        switch(choice) {
+            case 1:
+                B.sort(1, accending);
+                break;
+            case 2:
+                B.sort(2, accending);
+                break;
+            case 3:
+                B.sort(3, accending);
+                break;
+            case 4:
+                B.sort(4, accending);
+                break;
+            case 5:
+                B.sort(5, accending);
+                break;
+        }
+        cout << BLUE << "+[Thong bao]-> Da sap xep cac so tiet kiem (Xem trong tep 'data/output.data')!" << RESET << endl;
+        system("pause");
+    }
+}
 
-void handleChoice5_1(Bank &B) {}
+void handleChoice5_1(Bank &B) {
+    while(true) {
+        system("cls");
+        showBanner();
+        showMenu5_1();
+        int choice = getChoice(0, 4);
+        if(choice == 0) {
+            system("pause");
+            return;
+        }
+        string keyWord;
+        switch(choice) {
+            case 1: // Tìm theo mã khách hàng
+                cout << GREEN << "+[Nhap ma khach hang can tim]-> " << RESET;
+                cin >> keyWord;
+                B.search(1, keyWord);
+                break;
+            case 2: // Tìm theo tên
+                cout << GREEN << "+[Nhap ten khach hang can tim]-> " << RESET;
+                cin.ignore();
+                getline(cin, keyWord);
+                B.search(2, keyWord);
+                break;
+            case 3: // Tìm theo số CCCD
+                cout << GREEN << "+[Nhap so CCCD can tim]-> " << RESET;
+                cin >> keyWord;
+                B.search(3, keyWord);
+                break;
+            case 4: // Tìm theo kỳ hạn
+                cout << GREEN << "+[Nhap ky han can tim]-> " << RESET;
+                cin >> keyWord;
+                B.search(4, keyWord);
+                break;
+        }
+        system("pause");
+    }
+}
 
-void handleChoice5_2(Bank &B) {}
+void handleChoice5_2(Bank &B) {
+    while(true) {
+        system("cls");
+        showBanner();
+        showMenu5_2();
+        int choice = getChoice(0, 4);
+        if(choice == 0) {
+            system("pause");
+            break;
+        }
+        Date startDate, endDate;
+        double minAmount, maxAmount, minRate, maxRate;
+        switch(choice) {
+            case 1: {// Lọc theo ngày mở sổ
+                cout << GREEN << "+[Nhap ngay bat dau]:" << RESET << endl;
+                startDate.input();
+                cout << GREEN << "+[Nhap ngay ket thuc]:" << RESET << endl;
+                endDate.input();
+                B.filterByOpenDate(startDate, endDate);
+                break;
+            }
+            case 2: { // Lọc theo số dư
+                cout << GREEN << "+[Nhap so du toi thieu]-> " << RESET;
+                cin >> minAmount;
+                cout << GREEN << "+[Nhap so du toi da]-> " << RESET;
+                cin >> maxAmount;
+                B.filterByAmount(minAmount, maxAmount);
+                break;
+            }
+            case 3: { // Lọc theo lãi suất
+                cout << GREEN << "+[Nhap lai suat toi thieu]-> " << RESET;
+                cin >> minRate;
+                cout << GREEN << "+[Nhap lai suat toi da]-> " << RESET;
+                cin >> maxRate;
+                B.filterByInterestRate(minRate, maxRate);
+                break;
+            }
+            case 4: { // Lọc theo kỳ hạn
+                int termMin, termMax;
+                cout << GREEN << "+[Nhap ky han toi thieu (thang)]-> " << RESET;
+                cin >> termMin;
+                cout << GREEN << "+[Nhap ky han toi da (thang)]-> " << RESET;
+                cin >> termMax;
+                B.filterByTerm(termMin, termMax);
+                break;
+            }
+        }
+    }
+}
 
-void handleChoice5(Bank &B) {}
+void handleChoice5(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
+    while(true) {
+        system("cls");
+        showBanner();
+        showMenu5();
+        int choice = getChoice(0, 2);
+        switch(choice) {
+            case 0:
+                system("pause");
+                return;
+            case 1:
+                handleChoice5_1(B);
+                break;
+            case 2:
+                handleChoice5_2(B);
+                break;
+        }
+    }
+}
 
 void handleChoice6(Bank &B) {
+    if(B.getNumAccounts() == 0) {
+        cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
     B.calculateInterestPerAccount();
     cout << BLUE << "+[Thong bao]-> Da tinh tien lai tung so tiet kiem (Xem trong tep 'data/output.data')!" << RESET << endl;
     system("pause");
@@ -267,14 +449,22 @@ void handleChoice7(Bank &B) {
 }
 
 void handleChoice8(Bank &B) {
+    if(B.getName().empty()) {
+        cout << YELLOW << "+[Canh bao]-> Chua co thong tin ngan hang, vui long cap nhat thong tin!" << RESET << endl;
+        system("pause");
+        return;
+    }
     exportBankInfo(B);
-    cout << BLUE << "+[Thong bao]-> Da xuat thong tin ngan hang vao tep 'data/output.data'!" << RESET << endl;
     system("pause");
 }
 
 void handleChoice9(Bank &B) {
-    exportBankReport(B);
-    cout << BLUE << "+[Thong bao]-> Da xuat bao cao thong ke ngan hang vao tep 'data/output.data'!" << RESET << endl;
+    if(B.getName().empty()) {
+        cout << YELLOW << "+[Canh bao]-> Chua co thong tin ngan hang, vui long cap nhat thong tin!" << RESET << endl;
+        system("pause");
+        return;
+    }
+    exportBankReport(B); 
     system("pause");
 }
 
@@ -298,10 +488,12 @@ void handleMainMenu(Bank &B) {
             break;
         }
         case 4: {
-            // Chưa làm
+            handleChoice4(B);
+            break;
         }   
         case 5: {
-            // Chưa làm
+            handleChoice5(B);
+            break;
         }
         case 6: {
             handleChoice6(B);

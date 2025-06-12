@@ -63,6 +63,10 @@ string getTableRow(const int &type, SavingsAccount *acc, const int &i) {
 
 void exportBankInfo(Bank &B) {
     ofstream wf("data/output.data");
+    if(!wf) {
+        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        return;
+    }
     wf << setw(48) << "-Thong tin ngan hang-\n\n";
     wf << "+-----------------+---------------------------------------------------+" << endl;
     wf << "|    Thong tin    |                      Noi dung                     |" << endl;
@@ -77,10 +81,16 @@ void exportBankInfo(Bank &B) {
     wf << "+-----------------+---------------------------------------------------+" << endl;
     wf << "| Email           | " << left << setw(50) << B.getEmail() << "|" << endl;
     wf << "+-----------------+---------------------------------------------------+" << endl;
+    cout << BLUE << "+[Thong bao]-> Da xuat thong tin ngan hang vao tep 'data/output.data'!" << RESET << endl;
+    wf.close();
 }
 
 void exportBankReport(Bank &B) {
     ofstream wf("data/output.data");
+    if(!wf) {
+        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        return;
+    }
     wf << setw(51) << "-Bao cao thong ke ngan hang-\n\n";
     wf << "+-----------------------------------+-----------------------------------+" << endl;
     wf << "|             Thong tin             |              Noi dung             |" << endl;
@@ -91,16 +101,18 @@ void exportBankReport(Bank &B) {
     wf << "+-----------------------------------+-----------------------------------+" << endl;
     wf << "| Tong so so tiet kiem khong ky han | " << left << setw(34) << B.countAccountsByType(2) << "|" << endl;
     wf << "+-----------------------------------+-----------------------------------+" << endl;
-    wf << "| Tong so du (VND)                  | " << left << setw(34) << formatVND(B.calculateTotalBalance()) << "|" << endl;
+    wf << "| Tong so tien gui (VND)            | " << left << setw(34) << formatVND(B.calculateTotalAmount()) << "|" << endl;
     wf << "+-----------------------------------+-----------------------------------+" << endl;
     wf << "| Tong tien lai phai tra (VND)      | " << left << setw(34) << formatVND(B.calculateTotalInterest()) << "|" << endl;
     wf << "+-----------------------------------+-----------------------------------+" << endl;
+    cout << BLUE << "+[Thong bao]-> Da xuat bao cao thong ke ngan hang vao tep 'data/output.data'!" << RESET << endl;
+    wf.close();
 }
   
 void exportTable(const string &title, SavingsAccount *accounts[], int n) {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Doc tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     wf << title;
@@ -111,6 +123,5 @@ void exportTable(const string &title, SavingsAccount *accounts[], int n) {
         wf << getTableRow(1, accounts[i], i);
         wf << getHorizontalBorder(1);
     }
-
     wf.close();
 }

@@ -20,10 +20,9 @@ using namespace std;
 #define WHITE "\033[0;37m"
 #define RESET "\033[0m"
 
-// Khai báo và định nghĩa hằng
+// Khai báo và định nghĩa hằng, biến toàn cục
 const int MAX_CUSTOMER = 100;
-// Khai báo và định nghĩa các biến toàn cục
-bool running = true; // Biến trạng thái chạy của hệ thống
+bool running = true; // Biến điều khiển vòng lặp chính
 
 // Include các tệp header riêng
 #include "declare.h"
@@ -36,17 +35,10 @@ int main() {
     // Tạo đối tượng ngân hàng để quản lí sổ tiết kiệm 
     Bank B;
     B.loadFromFile();
-
     // Hiển thị menu chính
     while(running) {
         system("cls");
-        cout << CYAN;
-        cout << setw(69) << "/-------------------------------\\" << endl
-             << ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-             << " HE THONG QUAN LI SO TIET KIEM "
-             << "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<" << endl;
-        cout << setw(69) << "\\-------------------------------/" << endl;
-        cout << RESET;
+        showBanner();
         handleMainMenu(B);
     }
 
@@ -55,7 +47,6 @@ int main() {
 }
 
 
+
 /// Xem dữ liệu có hợp lệ hay ko trước khi saveToFile, ví dụ đã xoá hết tài khoản
-// viết thêm check email
 // thêm check loadfile
-// làm tròn đesn 2 chữ số thập phân khi nhập lãi và nhập dư
