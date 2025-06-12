@@ -1,6 +1,6 @@
 /* 
 -- Nội dung tệp: Chứa các hàm tiện tích
--- Số hàm: ...
+-- Số hàm: 10
 */
 
 string trim(const string &s) {
@@ -87,7 +87,8 @@ bool isValidEmail(const string &email) {
     int at = email.find('@');
     int space = email.find(' ');
     int dot = email.find('.', at); // tim '.' sau '@'
-    int com = email.rfind(".com"); // kiem tra .com o cuoi
+    int com = email.rfind(".com");
+    int vn = email.rfind(".vn");
     // Kiem tra dieu kien
     if (at == string::npos || at == 0 || at == email.length() - 1)
         return false;
@@ -97,15 +98,18 @@ bool isValidEmail(const string &email) {
         return false;
     if (com == string::npos || com != email.length() - 4)
         return false;
+    if (vn == string::npos || vn != email.length() - 3)
+        return false;
     return true;
 }
 
-string reverseName(string &hoTen) {
+string reverseName(const string &hoTen) {
     string tu[100]; // mang luu cac tu, toi da 100 tu
+    string hoTenCopy = hoTen;
     int dem = 0;
     string temp = "";
-    hoTen += ' '; // them khoang trang de tach tu cuoi
-    for (char c : hoTen) {
+    hoTenCopy += ' '; // them khoang trang de tach tu cuoi
+    for (char c : hoTenCopy) {
         if (c != ' ') {
             temp += c;
         } else if (!temp.empty()) {

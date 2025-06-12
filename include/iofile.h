@@ -1,6 +1,6 @@
 /* 
 -- Nội dung tệp: Chứa các hàm xử lí tệp
--- Số hàm: ...
+-- Số hàm: 6
 */
 
 string getHorizontalBorder(const int &type) {
@@ -64,7 +64,7 @@ string getTableRow(const int &type, SavingsAccount *acc, const int &i) {
 void exportBankInfo(Bank &B) {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << RED << "+[Loi]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     wf << setw(48) << "-Thong tin ngan hang-\n\n";
@@ -88,7 +88,7 @@ void exportBankInfo(Bank &B) {
 void exportBankReport(Bank &B) {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << RED << "+[Loi]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     wf << setw(51) << "-Bao cao thong ke ngan hang-\n\n";
@@ -112,7 +112,7 @@ void exportBankReport(Bank &B) {
 void exportTable(const string &title, SavingsAccount *accounts[], int n) {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << RED << "+[Loi]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     wf << title;

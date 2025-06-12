@@ -141,16 +141,17 @@ void showMenu5_2() {
 
 int getChoice(const int &minChoice, const int &maxChoice, const string &optionInfo) {
     int choice;
+    string tmp;
     while(true) {
         cout << GREEN << "+[Nhap lua chon";
         if(!optionInfo.empty()) {
             cout << " (" << optionInfo << ")";
         }
         cout << "]-> " << RESET;
-        cin >> choice;
-        if(cin.fail()) {
-            cin.clear();
-            cin.ignore(999, '\n');
+        cin >> tmp;
+        if(isNumberString(tmp)) {
+            choice = stoi(tmp);
+        } else {
             cout << YELLOW << "+[Canh bao]-> Vui long nhap so nguyen hop le!" << RESET << endl;
             continue;
         }
@@ -163,6 +164,11 @@ int getChoice(const int &minChoice, const int &maxChoice, const string &optionIn
 }
 
 void handleChoice1_1(Bank &B) {
+    if(B.getName().empty()) {
+        cout << YELLOW << "+[Canh bao]-> Vui long cap nhat thong tin ngan hang truoc khi them so tiet kiem!" << RESET << endl;
+        system("pause");
+        return;
+    }
     while(true) {
         system("cls");
         showBanner();
@@ -181,11 +187,10 @@ void handleChoice1_2(Bank &B) {
         cout << YELLOW << "+[Canh bao]-> Chua co so tiet kiem nao, vui long them so tiet kiem!" << RESET << endl;
         return;
     }
-    cin.ignore();
     while(true) {
         string customerId;
         cout << GREEN << "+[Nhap ma khach hang can cap nhat so tiet kiem (0: thoat)]-> " << RESET;
-        getline(cin, customerId);
+        cin >> customerId;
         customerId = trim(customerId);
         if(customerId == "0") {
             break;
@@ -195,6 +200,12 @@ void handleChoice1_2(Bank &B) {
             continue;
         }
         B.updateAccountInfo(customerId);
+        int ans;
+        cout << GREEN << "+[Ban muon cap nhat so tiet kiem nao nua khong? (1: co | 0: khong)]-> " << RESET;
+        cin >> ans;
+        if(!ans) {
+            break;
+        }
     }
 }
 
@@ -276,6 +287,8 @@ void handleChoice3(Bank &B) {
             break;
         }
         B.showAccounts(choice);
+        cout << BLUE << "+[Thong bao]-> Da hien thi cac so tiet kiem (Xem trong tep 'data/output.data')!" << RESET << endl;
+        system("pause");
     }
 }
 
@@ -330,27 +343,35 @@ void handleChoice5_1(Bank &B) {
         }
         string keyWord;
         switch(choice) {
-            case 1: // Tìm theo mã khách hàng
+            case 1: {
                 cout << GREEN << "+[Nhap ma khach hang can tim]-> " << RESET;
                 cin >> keyWord;
+                keyWord = trim(keyWord);
                 B.search(1, keyWord);
                 break;
-            case 2: // Tìm theo tên
+            }
+            case 2: {
                 cout << GREEN << "+[Nhap ten khach hang can tim]-> " << RESET;
                 cin.ignore();
                 getline(cin, keyWord);
+                keyWord = trim(keyWord);
                 B.search(2, keyWord);
                 break;
-            case 3: // Tìm theo số CCCD
+            }
+            case 3: {
                 cout << GREEN << "+[Nhap so CCCD can tim]-> " << RESET;
                 cin >> keyWord;
+                keyWord = trim(keyWord);
                 B.search(3, keyWord);
                 break;
-            case 4: // Tìm theo kỳ hạn
+            }
+            case 4: {
                 cout << GREEN << "+[Nhap ky han can tim]-> " << RESET;
                 cin >> keyWord;
+                keyWord = trim(keyWord);
                 B.search(4, keyWord);
                 break;
+            }
         }
         system("pause");
     }
@@ -375,6 +396,7 @@ void handleChoice5_2(Bank &B) {
                 cout << GREEN << "+[Nhap ngay ket thuc]:" << RESET << endl;
                 endDate.input();
                 B.filterByOpenDate(startDate, endDate);
+                system("pause");
                 break;
             }
             case 2: { // Lọc theo số dư
@@ -383,6 +405,7 @@ void handleChoice5_2(Bank &B) {
                 cout << GREEN << "+[Nhap so du toi da]-> " << RESET;
                 cin >> maxAmount;
                 B.filterByAmount(minAmount, maxAmount);
+                system("pause");
                 break;
             }
             case 3: { // Lọc theo lãi suất
@@ -391,6 +414,7 @@ void handleChoice5_2(Bank &B) {
                 cout << GREEN << "+[Nhap lai suat toi da]-> " << RESET;
                 cin >> maxRate;
                 B.filterByInterestRate(minRate, maxRate);
+                system("pause");
                 break;
             }
             case 4: { // Lọc theo kỳ hạn
@@ -400,6 +424,7 @@ void handleChoice5_2(Bank &B) {
                 cout << GREEN << "+[Nhap ky han toi da (thang)]-> " << RESET;
                 cin >> termMax;
                 B.filterByTerm(termMin, termMax);
+                system("pause");
                 break;
             }
         }

@@ -20,7 +20,7 @@ string correctName(const string &str); // Chuẩn hoá họ và tên
 bool isNumberString(const string &s); // Trả về true nếu chuỗi là số nguyên dương
 string toLowerCase(const string &str); // Chuyển chuỗi về chữ thường
 bool isValidEmail(const string &email); // Kiểm tra tính hợp lệ của email
-string reverseName(string &hoTen); // Đảo ngược họ và tên
+string reverseName(const string &hoTen); // Đảo ngược họ và tên
 template<class T>
 void customSort(T *arr[], const int &n, bool (*cmp)(T*, T*), bool ascending = true);
 
@@ -37,7 +37,6 @@ void showBanner(); // Hiển thị banner
 void showMenu(); // Hiển thị menu
 void showMenu1(); // Hiển thị menu của lựa chọn 1
 void showMenu1_1(); // Hiển thị menu của lựa chọn 1.1
-void showMenu1_2(); // Hiển thị menu của lựa chọn 1.2
 void showMenu3(); // Hiển thị mnenu của lựa chọn 3
 void showMenu4(); // Hiển thị menu của lựa chọn 4
 void showMenu5(); // Hiển thị menu của lựa chọn 5
@@ -50,7 +49,6 @@ void handleChoice1(Bank &B); // Xử lí lựa chọn 1
 void handleChoice2(Bank &B); // Xử lí lựa chọn 2
 void handleChoice3(Bank &B); // Xử lí lựa chọn 3
 void handleChoice4(Bank &B); // Xử lí lựa chọn 4
-void handleChoice5_1_1(Bank &B); // Xử lí kết quả sau khi tìm kiếm
 void handleChoice5_1(Bank &B); // Xử lí lựa chọn menu 5.1
 void handleChoice5_2(Bank &B); // Xử lí lựa chọn menu 5.2
 void handleChoice5(Bank &B); // Xử lí lựa chọn 5

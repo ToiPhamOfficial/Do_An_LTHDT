@@ -45,8 +45,3 @@ int main() {
     system("pause");
     return 0;
 }
-
-
-
-/// Xem dữ liệu có hợp lệ hay ko trước khi saveToFile, ví dụ đã xoá hết tài khoản
-// thêm check loadfile

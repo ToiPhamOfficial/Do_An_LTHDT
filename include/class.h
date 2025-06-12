@@ -33,21 +33,40 @@ Date::Date(int d, int m, int y) {
 }
 
 void Date::input() {
+    string tmp;
     do {
         cout << GREEN << " +[Nhap ngay (1-31)]-> " << RESET;
-        cin >> day;
+        cin >> tmp;
+        if(isNumberString(tmp)) {
+            day = stoi(tmp);
+        } else {
+            cout << YELLOW << " +[Canh bao]-> Vui long nhap ngay hop le!" << RESET << endl;
+            continue;
+        }
         if (day < 1 || day > 31) 
             cout << YELLOW << " +[Canh bao]-> Ngay khong hop le, hay nhap lai!" << RESET << endl;
     } while (day < 1 || day > 31);
     do {
         cout << GREEN << " +[Nhap thang (1-12)]-> " << RESET;
-        cin >> month;
+        cin >> tmp;
+        if(isNumberString(tmp)) {
+            month = stoi(tmp);
+        } else {
+            cout << YELLOW << " +[Canh bao]-> Vui long nhap thang hop le!" << RESET << endl;
+            continue;
+        }
         if (month < 1 || month > 12) 
             cout << YELLOW << " +[Canh bao]-> Thang khong hop le, hay nhap lai!" << RESET << endl;
     } while (month < 1 || month > 12);
     do {
         cout << GREEN << " +[Nhap nam (1900-2025)]-> " << RESET;
-        cin >> year;
+        cin >> tmp;
+        if(isNumberString(tmp)) {
+            year = stoi(tmp);
+        } else {
+            cout << YELLOW << " +[Canh bao]-> Vui long nhap nam hop le!" << RESET << endl;
+            continue;
+        }
         if (year < 1900 || year > 2025) 
             cout << YELLOW << " +[Canh bao]-> Nam khong hop le, hay nhap lai!" << RESET << endl;
     } while (year < 1900 || year > 2025);
@@ -210,8 +229,7 @@ void SavingsAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
     // Nhập số CCCD với kiểm tra trùng lặp
     do {
         cout << GREEN << "+[Nhap so CCCD" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
-        getline(cin, inputId);
-        inputId = trim(inputId);
+        cin >> inputId;
         if(isUpdateMode && inputId == "0") break;
         if(inputId.length() != 12 || !isNumberString(inputId)) {
             cout << YELLOW << "+[Canh bao]-> CCCD phai gom 12 chu so" << RESET << endl;
@@ -374,14 +392,12 @@ class TermAccount : public SavingsAccount {
 TermAccount::TermAccount() : SavingsAccount() {}
 
 void TermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCustomerIds[], string existingIdNumbers[], const int &numExisting) {
-    cin.ignore();
-    
     // Nhập mã khách hàng đúng định dạng: T + 5 chữ số với kiểm tra trùng lặp
-    string inputId;
+    string inputId, tmp;
     bool validId = false;
     while (!validId) {
         cout << GREEN << "+[Nhap ma khach hang" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
-        getline(cin, inputId);
+        cin >> inputId;
         inputId = trim(inputId);
         if(isUpdateMode && inputId == "0") break;
         // Kiểm tra định dạng: T + 5 chữ số
@@ -421,22 +437,20 @@ void TermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCustome
     SavingsAccount::inputOrUpdate(isUpdateMode, existingCustomerIds, existingIdNumbers, numExisting);
     
     // Nhập kỳ hạn
-    do {
-        cout << GREEN << "+[Nhap ky han" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
-        cin >> term;
-        if(isUpdateMode && term == 0) break;
-        if(cin.fail()) {
-            cin.clear();
-            cin.ignore(999, '\n');
+   while(true) {
+        cout << GREEN << "+[Nhap ky han (thang)]" << (isUpdateMode ? " moi (0: bo qua)" : "") << "-> " << RESET;
+        cin >> tmp;
+        if(isUpdateMode && tmp == "0") {
+            break;
+        }
+        if(isNumberString(tmp)) {
+            term = stoi(tmp);
+            break;
+        } else {
             cout << YELLOW << "+[Canh bao]-> Vui long nhap ky han hop le!" << RESET << endl;
             continue;
         }
-        if(term < 1 || term > 60) {
-            cout << YELLOW << "+[Canh bao]-> Ky han cho phep tu 1 den 60 thang" << RESET << endl;
-        } else {
-            break;
-        }
-    } while(term < 1 || term > 60);
+    }
 }
 
 int TermAccount::getTerm() {
@@ -481,10 +495,10 @@ void NonTermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
     // Nhập mã khách hàng đúng định dạng: N + 5 chữ số với kiểm tra trùng lặp
     string inputId;
     bool validId = false;
+    cin.ignore();
     while (!validId) {
         cout << GREEN << "+[Nhap ma khach hang" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
-        getline(cin, inputId);
-        inputId = trim(inputId);
+        cin >> inputId;
         if(isUpdateMode && inputId == "0") break;
         
         // Kiểm tra định dạng: N + 5 chữ số
@@ -590,42 +604,40 @@ void Bank::update() {
         cin.ignore();
         getline(cin, newName);
         newName = trim(newName);
-        if(newName.length() > 50) {
-            cout << YELLOW << "+[Canh bao]-> Ten ngan hang khong duoc qua 50 ky tu" << RESET << endl;
+        if(newName.length() < 5 || newName.length() > 50) {
+            cout << YELLOW << "+[Canh bao]-> Ten ngan hang phai co do dai tu 5 den 50 ky tu" << RESET << endl;
         } else {
             name = newName; 
             break;
         }
-    } while(newName.length() > 50);
+    } while(newName.length() < 5 || newName.length() > 50);
     // Nhập địa chỉ ngân hàng
     do {
         cout << GREEN << "+[Nhap dia chi ngan hang]-> " << RESET;
         getline(cin, newAddress);
         newAddress = trim(newAddress);
-        if(newAddress.length() > 50) {
-            cout << YELLOW << "+[Canh bao]-> Dia chi ngan hang khong duoc qua 50 ky tu" << RESET << endl;
+        if(newAddress.length() < 10 || newAddress.length() > 50) {
+            cout << YELLOW << "+[Canh bao]-> Dia chi ngan hang phai co do dai tu 10 den 50 ky tu" << RESET << endl;
         } else {
             address = newAddress; 
             break;
         }
-    } while(newAddress.length() > 50);
+    } while(newAddress.length() < 10 || newAddress.length() > 50);
     // Nhập mã số thuế ngân hàng
     do {
-        // Kiểm tra mã số thuế có đúng định dạng không
+        cout << GREEN << "+[Nhap ma so thue ngan hang]-> " << RESET;
+        cin >> newTaxCode;
         if(newTaxCode.length() != 10 || !isNumberString(newTaxCode)) {
             cout << YELLOW << "+[Canh bao]-> Ma so thue ngan hang phai gom 10 chu so, vui long nhap lai!" << RESET << endl;
-            cout << GREEN << "+[Nhap ma so thue ngan hang]-> " << RESET;
-            getline(cin, newTaxCode);
-            newTaxCode = trim(newTaxCode);
         } else {
+            taxCode = newTaxCode;
             break; // Thoát vòng lặp nếu mã số thuế hợp lệ
         }
-    } while(true);
+    } while(newTaxCode.length() != 10 || !isNumberString(newTaxCode));
     do {
         // Kiểm tra số điện thoại có đúng định dạng không
         cout << GREEN << "+[Nhap so dien thoai ngan hang]-> " << RESET;
-        getline(cin, newPhone);
-        newPhone = trim(newPhone);
+        cin >> newPhone;
         if(newPhone.length() != 10 || !isNumberString(newPhone)) {
             cout << YELLOW << "+[Canh bao]-> So dien thoai ngan hang phai gom 10 chu so, vui long nhap lai!" << RESET << endl;
         } else {
@@ -635,11 +647,15 @@ void Bank::update() {
     // Nhập email ngân hàng
     do {
         cout << GREEN << "+[Nhap email ngan hang]-> " << RESET;
-        getline(cin, newEmail);
-        newEmail = trim(newEmail);
+        cin >> newEmail;
+        if(newEmail.length() > 50) {
+            cout << YELLOW << "+[Canh bao]-> Email ngan hang khong duoc qua 50 ky tu" << RESET << endl;
+            continue;
+        }
         if(!isValidEmail(newEmail)) {
             cout << YELLOW << "+[Canh bao]-> Email khong hop le, vui long nhap lai!" << RESET << endl;
         } else {
+            email = newEmail;
             break; // Thoát vòng lặp nếu email hợp lệ
         }
     } while(!isValidEmail(newEmail));
@@ -807,6 +823,8 @@ void Bank::updateAccountInfo(const string &customerId) {
     }
     
     accounts[foundIndex]->inputOrUpdate(true, existingCustomerIds, existingIdNumbers, count);
+    saveToFile();
+    cout << BLUE << "+[Thong bao]-> Cap nhat thong tin so tiet kiem thanh cong!" << RESET << endl;
 }
 
 bool Bank::removeAccount(const string &customerId) {
@@ -844,7 +862,7 @@ bool Bank::accountExists(const string &customerId) {
 void Bank::showAccounts(const int &mod) {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Doc tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << RED << "+[Loi]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     switch (mod) {
@@ -852,10 +870,10 @@ void Bank::showAccounts(const int &mod) {
             wf << setw(73) << "-Tat ca so tiet kiem-\n\n";
             break;
         case 2:
-            wf << "-Cac so tiet kiem co ky han-\n\n";
+            wf << setw(70) << "-Cac so tiet kiem co ky han-\n\n";
             break;
         case 3:
-            wf << "-Cac so tiet kiem khong ky han-\n\n";
+            wf << setw(68) << "-Cac so tiet kiem khong ky han-\n\n";
             break;
         default:
             return;
@@ -882,7 +900,7 @@ void Bank::showAccounts(const int &mod) {
 void Bank::calculateInterestPerAccount() {
     ofstream wf("data/output.data");
     if(!wf) {
-        cout << YELLOW << "+[Canh bao]-> Doc tep that bai. Vui long kiem tra lai tep" << RESET << endl;
+        cout << RED << "+[Loi]-> Ghi tep that bai. Vui long kiem tra lai tep" << RESET << endl;
         return;
     }
     wf << setw(80) << "-Tien lai moi so-\n\n";
@@ -929,7 +947,9 @@ double Bank::calculateTotalInterest() {
 }
 
 bool Bank::compareByName(SavingsAccount *a, SavingsAccount *b) {
-    return a->getCustomerName() < b->getCustomerName();
+    string reversedNameA = reverseName(a->getCustomerName());
+    string reversedNameB = reverseName(b->getCustomerName());
+    return reversedNameA < reversedNameB;
 }
 
 bool Bank::compareByOpenDate(SavingsAccount *a, SavingsAccount *b) {
@@ -1034,6 +1054,9 @@ void Bank::search(const int &mod, const string &keyWord) {
         string spaces(42, ' ');
         string title = spaces + "-Danh sach so tiet kiem tim thay-\n\n";
         exportTable(title, foundAccounts, fc);
+        cout << GREEN << "+[Thong bao]-> Da tim thay " << fc << " so tiet kiem (Xem trong tep 'data/output.data')!" << RESET << endl;
+    } else {
+        cout << YELLOW << "+[Canh bao]-> Khong tim thay so tiet kiem nao!" << RESET << endl;
     }
 }
 
