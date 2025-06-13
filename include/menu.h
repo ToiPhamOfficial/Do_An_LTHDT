@@ -179,6 +179,7 @@ void handleChoice1_1(Bank &B) {
             break;
         }
         B.addAccount(choice);
+        system("pause");
     }
 }
 
@@ -355,13 +356,17 @@ void handleChoice5_1(Bank &B) {
                 cin.ignore();
                 getline(cin, keyWord);
                 keyWord = trim(keyWord);
+                if(keyWord.empty()) {
+                    cout << YELLOW << "+[Canh bao]-> Khong duoc de trong!" << RESET << endl;
+                    system("pause");
+                    continue;
+                }
                 B.search(2, keyWord);
                 break;
             }
             case 3: {
                 cout << GREEN << "+[Nhap so CCCD can tim]-> " << RESET;
                 cin >> keyWord;
-                keyWord = trim(keyWord);
                 B.search(3, keyWord);
                 break;
             }

@@ -88,7 +88,6 @@ bool isValidEmail(const string &email) {
     int space = email.find(' ');
     int dot = email.find('.', at); // tim '.' sau '@'
     int com = email.rfind(".com");
-    int vn = email.rfind(".vn");
     // Kiem tra dieu kien
     if (at == string::npos || at == 0 || at == email.length() - 1)
         return false;
@@ -97,8 +96,6 @@ bool isValidEmail(const string &email) {
     if (dot == string::npos || dot == email.length() - 1)
         return false;
     if (com == string::npos || com != email.length() - 4)
-        return false;
-    if (vn == string::npos || vn != email.length() - 3)
         return false;
     return true;
 }

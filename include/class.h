@@ -110,6 +110,19 @@ bool Date::isValidDate(int d, int m, int y) {
     return true;
 }
 
+int Date::monthsBetween(Date &other){
+	// Tinh tong so thang cua moi Date
+	int thisMonth = year * 12 + month;
+	int otherMonth = other.year * 12 + other.month;
+	// Tinh khoang cach giua 2 thang
+	int result = otherMonth - thisMonth;
+	// Dieu chinh theo ngay
+	if(other.day < day) {
+        result--;
+    }
+	return result;
+}
+
 bool Date::operator>(const Date &other) {
     if (year != other.year) return year > other.year;
     if (month != other.month) return month > other.month;
@@ -150,19 +163,6 @@ string Date::toString() {
     os << "/" << year;
 
     return os.str();
-}
-
-int Date::monthsBetween(Date &other){
-	// Tinh tong so thang cua moi Date
-	int thisMonth = year * 12 + month;
-	int otherMonth = other.year * 12 + other.month;
-	// Tinh khoang cach giua 2 thang
-	int result = otherMonth - thisMonth;
-	// Dieu chinh theo ngay
-	if(other.day < day) {
-        result--;
-    }
-	return result;
 }
 
 Date::~Date() {}
@@ -214,17 +214,18 @@ void SavingsAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
     // Nhập tên khách hàng
     do {
         cout << GREEN << "+[Nhap ten khach hang" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
+        cin.ignore();
         getline(cin, inputName); 
         inputName = trim(inputName);
         if(isUpdateMode && inputName == "0") break;
         inputName = correctName(inputName);
-        if(inputName.length() > 21) {
-            cout << YELLOW << "+[Canh bao]-> Khong duoc qua 21 ky tu, hay nhap lai." << RESET << endl;
+        if(inputName.length() < 5 || inputName.length() > 21) {
+            cout << YELLOW << "+[Canh bao]-> Ten khach hang phai tu 5 den 21 ky tu, hay nhap lai." << RESET << endl;
             continue;
         }
         customerName = inputName;
         break;
-    } while(inputName.length() > 21);
+    } while(inputName.length() < 5 || inputName.length() > 21);
 
     // Nhập số CCCD với kiểm tra trùng lặp
     do {
@@ -282,19 +283,19 @@ void SavingsAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
             cout << YELLOW << "+[Canh bao]-> Vui long nhap lai suat hop le!" << RESET << endl;
             continue;
         }
-        if(inputRate <= 0 || inputRate > 10.0) {
-            cout << YELLOW << "+[Canh bao]-> Lai suat cho phep > 0 va <= 10%" << RESET << endl;
+        if(inputRate <= 0 || inputRate > 1.0) {
+            cout << YELLOW << "+[Canh bao]-> Lai suat cho phep > 0 va <= 1%" << RESET << endl;
             continue;
         }
         interestRate = roundToTwoDecimals(inputRate);
-    } while(inputRate <= 0 || inputRate > 10.0);
-    
+    } while(inputRate <= 0 || inputRate > 1.0);
+
     // Nhập ngày mở sổ tiết kiệm
     if(isUpdateMode) {
-        char c;
-        cout << GREEN << "+[Nhap ngay mo so tiet kiem moi (0: bo qua)]: " << RESET;
-        cin >> c;
-        if(c != '0') {
+        string tmp;
+        cout << GREEN << "+[Cap nhat ngay mo so tiet kiem (1: co | 0: khong)]: " << RESET;
+        cin >> tmp;
+        if(tmp != "0") {
             openDate.input(); 
         }
     } else {
@@ -438,7 +439,7 @@ void TermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCustome
     
     // Nhập kỳ hạn
    while(true) {
-        cout << GREEN << "+[Nhap ky han (thang)]" << (isUpdateMode ? " moi (0: bo qua)" : "") << "-> " << RESET;
+        cout << GREEN << "+[Nhap ky han" << (isUpdateMode ? " moi (0: bo qua)" : "") << "]-> " << RESET;
         cin >> tmp;
         if(isUpdateMode && tmp == "0") {
             break;
@@ -641,6 +642,7 @@ void Bank::update() {
         if(newPhone.length() != 10 || !isNumberString(newPhone)) {
             cout << YELLOW << "+[Canh bao]-> So dien thoai ngan hang phai gom 10 chu so, vui long nhap lai!" << RESET << endl;
         } else {
+            phone = newPhone;
             break; // Thoát vòng lặp nếu số điện thoại hợp lệ
         }
     } while(true);
@@ -1071,9 +1073,10 @@ void Bank::filterByOpenDate(const Date &startDate, const Date &endDate) {
     }
     if(fc != 0) {
         // Hiển thị kết quả lọc
-        string spaces(42, ' ');
-        string title = spaces + "-Danh sach so tiet kiem theo ngay mo so-\n\n";
+        string spaces(39, ' ');
+        string title = spaces + "-Danh sach so tiet kiem loc theo ngay mo so-\n\n";
         exportTable(title, filteredAccounts, fc);
+        cout << GREEN << "+[Thong bao]-> Da loc " << fc << " so tiet kiem theo khoang thoi gian (Xem trong tep 'data/output.data')!" << RESET << endl;
     } else {
         cout << YELLOW << "+[Canh bao]-> Khong co so tiet kiem nao trong khoang thoi gian nay" << RESET << endl;
     }
@@ -1090,9 +1093,10 @@ void Bank::filterByAmount(const double &minAmount, const double &maxAmount) {
     }
     if(fc != 0) {
         // Hiển thị kết quả lọc
-        string spaces(42, ' ');
-        string title = spaces + "-Danh sach so tiet kiem theo so du-\n\n";
+        string spaces(41, ' ');
+        string title = spaces + "-Danh sach so tiet kiem loc theo so du-\n\n";
         exportTable(title, filteredAccounts, fc);
+        cout << GREEN << "+[Thong bao]-> Da loc " << fc << " so tiet kiem theo khoang so du (Xem trong tep 'data/output.data')!" << RESET << endl;
     } else {
         cout << YELLOW << "+[Canh bao]-> Khong co so tiet kiem nao trong khoang so du nay" << RESET << endl;
     }
@@ -1109,9 +1113,10 @@ void Bank::filterByInterestRate(const double &minRate, const double &maxRate) {
     }
     if(fc != 0) {
         // Hiển thị kết quả lọc
-        string spaces(42, ' ');
-        string title = spaces + "-Danh sach so tiet kiem theo lai suat-\n\n";
+        string spaces(39, ' ');
+        string title = spaces + "-Danh sach so tiet kiem loc theo lai suat-\n\n";
         exportTable(title, filteredAccounts, fc);
+        cout << GREEN << "+[Thong bao]-> Da loc " << fc << " so tiet kiem theo khoang lai suat (Xem trong tep 'data/output.data')!" << RESET << endl;
     } else {
         cout << YELLOW << "+[Canh bao]-> Khong co so tiet kiem nao trong khoang lai suat nay" << RESET << endl;
     }
@@ -1128,9 +1133,10 @@ void Bank::filterByTerm(const int &termMin, const int &termMax) {
     }
     if(fc != 0) {
         // Hiển thị kết quả lọc
-        string spaces(42, ' ');
-        string title = spaces + "-Danh sach so tiet kiem theo ky han-\n\n";
+        string spaces(41, ' ');
+        string title = spaces + "-Danh sach so tiet kiem loc theo ky han-\n\n";
         exportTable(title, filteredAccounts, fc);
+        cout << GREEN << "+[Thong bao]-> Da loc " << fc << " so tiet kiem theo khoang ky han (Xem trong tep 'data/output.data')!" << RESET << endl;
     } else {
         cout << YELLOW << "+[Canh bao]-> Khong co so tiet kiem nao co ky han nay" << RESET << endl;
     }
