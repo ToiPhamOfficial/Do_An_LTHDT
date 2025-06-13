@@ -201,9 +201,8 @@ class Bank             // Quản lý ngân hàng
 - Thông báo lỗi đọc/ghi file
 
 ## 👨‍💻 Tác giả
-- **Họ tên**: [Tên tác giả]
-- **MSSV**: [Mã số sinh viên]
-- **Lớp**: [Tên lớp]
+- **Tên nhóm**: [Nhóm 9]
+- **Lớp**: [K65-LTHĐT02]
 - **Môn học**: Lập trình hướng đối tượng
 
 ## 📄 Giấy phép
@@ -213,6 +212,3 @@ Dự án này được phát hành dưới giấy phép MIT. Xem file [LICENSE](
 - Cảm ơn giảng viên hướng dẫn
 - Cảm ơn các tài liệu tham khảo
 - Cảm ơn cộng đồng lập trình C++
-
----
-**📞 Liên hệ**: [email] | **🔗 GitHub**: [link repository]
