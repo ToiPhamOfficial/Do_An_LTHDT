@@ -238,7 +238,7 @@ void SavingsAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
         }
         // Kiểm tra trùng lặp CCCD
         bool isDuplicate = false;
-        if(existingIdNumbers != nullptr && !isUpdateMode) {
+        if(existingIdNumbers != nullptr) {
             for(int i = 0; i < numExisting; i++) {
                 if(existingIdNumbers[i] == inputId) {
                     isDuplicate = true;
@@ -252,7 +252,7 @@ void SavingsAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
         }
         idNumber = inputId;
         break;
-    } while(inputId.length() != 12 || !isNumberString(inputId));
+    } while(true);
     
     // Nhập số tiền gửi
     do {
@@ -413,7 +413,7 @@ void TermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCustome
             if(allDigits) {
                 // Kiểm tra trùng lặp mã khách hàng
                 bool isDuplicate = false;
-                if(existingCustomerIds != nullptr && !isUpdateMode) {
+                if(existingCustomerIds != nullptr) {
                     for(int i = 0; i < numExisting; i++) {
                         if(existingCustomerIds[i] == inputId) {
                             isDuplicate = true;
@@ -514,7 +514,7 @@ void NonTermAccount::inputOrUpdate(const bool &isUpdateMode, string existingCust
             if (allDigits) {
                 // Kiểm tra trùng lặp mã khách hàng
                 bool isDuplicate = false;
-                if(existingCustomerIds != nullptr && !isUpdateMode) {
+                if(existingCustomerIds != nullptr) {
                     for(int i = 0; i < numExisting; i++) {
                         if(existingCustomerIds[i] == inputId) {
                             isDuplicate = true;
