@@ -31,8 +31,9 @@ Do_An_LTHDT/
 ```
 
 ## 🔧 Yêu cầu hệ thống
-- **Ngôn ngữ**: C++
-- **Compiler**: GCC/MinGW hoặc Visual Studio
+- **Ngôn ngữ**: C++ (Chuẩn C++11 trở lên)
+- **Compiler**: GCC/MinGW (Nếu dùng IDE chưa có sẵn compiler)
+- **IDE**: VSCode hoặc Embarcadero Dev-C++
 - **Hệ điều hành**: Windows/Linux/macOS
 - **RAM**: Tối thiểu 4GB
 - **Dung lượng**: ~50MB
