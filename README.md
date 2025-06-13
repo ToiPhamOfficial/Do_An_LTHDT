@@ -26,8 +26,7 @@ Do_An_LTHDT/
 │   └── output.data       # File xuất kết quả
 ├── main.exe              # File thực thi
 ├── LICENSE               # Giấy phép
-├── README.md             # Tài liệu hướng dẫn
-└── update_info.txt       # Thông tin cập nhật
+└── README.md             # Tài liệu hướng dẫn
 ```
 
 ## 🔧 Yêu cầu hệ thống
