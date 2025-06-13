@@ -86,17 +86,24 @@ string toLowerCase(const string &str) {
 bool isValidEmail(const string &email) {
     int at = email.find('@');
     int space = email.find(' ');
-    int dot = email.find('.', at); // tim '.' sau '@'
-    int com = email.rfind(".com");
-    // Kiem tra dieu kien
+    int dot = email.find('.', at); // tìm '.' sau '@'
+
+    // Tìm các đuôi hợp lệ
+    bool validTLD = false;
+    if (email.size() >= 4 && email.substr(email.size() - 4) == ".com") validTLD = true;
+    if (email.size() >= 3 && email.substr(email.size() - 3) == ".vn") validTLD = true;
+    if (email.size() >= 7 && email.substr(email.size() - 7) == ".com.vn") validTLD = true;
+
+    // Kiểm tra điều kiện
     if (at == string::npos || at == 0 || at == email.length() - 1)
         return false;
     if (space != string::npos)
         return false;
     if (dot == string::npos || dot == email.length() - 1)
         return false;
-    if (com == string::npos || com != email.length() - 4)
+    if (!validTLD)
         return false;
+
     return true;
 }
 

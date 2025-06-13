@@ -639,13 +639,13 @@ void Bank::update() {
         // Kiểm tra số điện thoại có đúng định dạng không
         cout << GREEN << "+[Nhap so dien thoai ngan hang]-> " << RESET;
         cin >> newPhone;
-        if(newPhone.length() != 10 || !isNumberString(newPhone)) {
-            cout << YELLOW << "+[Canh bao]-> So dien thoai ngan hang phai gom 10 chu so, vui long nhap lai!" << RESET << endl;
+        if(newPhone.length() != 8 && newPhone.length() != 10 && newPhone.length() != 11 || !isNumberString(newPhone)) {
+            cout << YELLOW << "+[Canh bao]-> So dien thoai ngan hang phai gom 8, 10 hoac 11 chu so, vui long nhap lai!" << RESET << endl;
         } else {
             phone = newPhone;
             break; // Thoát vòng lặp nếu số điện thoại hợp lệ
         }
-    } while(true);
+    } while(newPhone.length() != 8 && newPhone.length() != 10 && newPhone.length() != 11 || !isNumberString(newPhone));
     // Nhập email ngân hàng
     do {
         cout << GREEN << "+[Nhap email ngan hang]-> " << RESET;
